@@ -1,3 +1,4 @@
+# Spring AOP + SPEL 
 ## 简介
 Spring内功心法 AOP + SPEL 组合之秘技。
 
@@ -53,3 +54,27 @@ public Object hasRole(String test, String test1) {
 
 ### 链接
 [Spring el 文档](https://docs.spring.io/spring/docs/4.3.16.RELEASE/spring-framework-reference/htmlsingle/#expressions-operators-logical)
+
+# Spring AOP + Annotation做审计日志
+@SysLog: 用于记录系统所需的日志信息，其中content参数的内容中可以结合@SysLogType使用\
+@SysLogType:标明入参的变量名，用于aop提取变量的值
+
+## 案例：
+```
+/**
+ * 访问:http://localhost:8080/doLogAction?count=1&phone=13244445555
+ * 控制台期望输出:
+ *
+ *  >>>>>>>>>>>>>{"id":null,"userId":null,"opeatorType":"订单模块","operatorContent":"用户下了\"1\"张订单,联系人电话为\"13244445555\"","operatorTime":"2019-11-23 17:35:30"}
+ *
+ * 演示Controller层使用@SysLog注解
+ * @param count
+ * @return
+ */
+@GetMapping("doLogAction")
+@SysLog(type = "订单模块", content = "用户下了{count}张订单,联系人电话为{phone}", projectId = "2")
+public Object doLogAction(@SysLogType("count") String count, @SysLogType("phone")String phone) {
+    return count;
+}
+
+```
