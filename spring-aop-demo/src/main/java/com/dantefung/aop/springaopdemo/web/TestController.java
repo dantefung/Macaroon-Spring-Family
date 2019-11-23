@@ -3,6 +3,7 @@ package com.dantefung.aop.springaopdemo.web;
 import com.dantefung.aop.springaopdemo.annotation.PreAuthorize;
 import com.dantefung.aop.springaopdemo.annotation.SysLog;
 import com.dantefung.aop.springaopdemo.annotation.SysLogType;
+import com.dantefung.aop.springaopdemo.core.result.R;
 import com.dantefung.aop.springaopdemo.security.SecurityUser;
 import com.dantefung.aop.springaopdemo.service.SysLogTestService;
 import com.dantefung.aop.springaopdemo.utils.SpringContextUtils;
@@ -108,4 +109,14 @@ public class TestController {
 	public Object doLogAction(@SysLogType("count") String count, @SysLogType("phone")String phone) {
 		return count;
 	}
+
+    /**
+     * 测试AOP请求日志切面
+     * @param username
+     * @return
+     */
+    @GetMapping("testRequestLog")
+    public R testRequestLog(String username) {
+        return R.success();
+    }
 }
