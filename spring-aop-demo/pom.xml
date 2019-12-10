@@ -59,6 +59,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!--调用链分析框架-->
+		<dependency>
+			<groupId>cn.yueshutong</groupId>
+			<artifactId>tree-spring-boot-starter</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>

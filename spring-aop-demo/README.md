@@ -78,3 +78,20 @@ public Object doLogAction(@SysLogType("count") String count, @SysLogType("phone"
 }
 
 ```
+# 调用链
+文档地址: [ProjectTree](https://github.com/yueshutong/ProjectTree)
+
+Project Tree不仅增加了对分布式接口的监控，还增加了pointcut表示式。
+
+### 访问ProjectTree
+
+启动你的项目，首先访问你项目的某个接口，使其执行被监控的方法。然后访问`localhost:8080/tree/project.html`查看网页。
+
+#### 接口说明
+
+| 接口                         | 说明                 |
+| ---------------------------- | -------------------- |
+| /tree/project.html         | 返回完整调用链视图     |
+| /tree/project.html?all=1    | 返回全部方法视图     |
+| /projecttree/all        | JSON形式的返回结果   |
+| /projecttree/{methodId}      | 对某一方法的JSON结果 |
