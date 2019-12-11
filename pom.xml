@@ -14,7 +14,7 @@
 
     <modules>
         <module>spring-aop-demo</module>
-        
+        <module>spring-boot-rocketmq</module>
     </modules>
 
     <properties>
