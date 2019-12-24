@@ -25,7 +25,7 @@ public class ProducerController {
     @Value("${rocketmq.producer.group}")
     private String schedulingPlanTopicPdGroup;
  
-    @Value("${rocketmq.topic.advert-mq.schedulingPlanTopic}")
+    @Value("${rocketmq.topic.test-mq.schedulingPlanTopic}")
     private String springTransTopic;
 
 	/**
@@ -42,7 +42,7 @@ public class ProducerController {
         String rocketMQId = "KEY_2";
         RocketMQSender rocketMQSender = new RocketMQSender.Builder(rocketMQTemplate, StringUtils.isNotBlank(topic)?topic:springTransTopic)
                 //.withTag("ADVERT_CONTRACT_TOPIC_CS_GROUP")
-                .withTag(StringUtils.isNotBlank(tag)?tag:"DANTE_ADVERT_CONTRACT_TOPIC_CS_GROUP")
+                .withTag(StringUtils.isNotBlank(tag)?tag:"DANTE_TEST_CONTRACT_TOPIC_CS_GROUP")
                 //.withTxProducerGroup(contractTopicPdGroup)
                 .build();
         JSONObject jsonObject = new JSONObject();

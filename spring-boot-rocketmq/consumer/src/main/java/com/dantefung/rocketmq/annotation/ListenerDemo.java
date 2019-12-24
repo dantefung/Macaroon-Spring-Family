@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
 
 @Slf4j
 @Service
-@RocketMQMessageListener(topic = "${rocketmq.topic.advert-mq.schedulingPlanTopic}", consumerGroup = "${rocketmq.consumer.cs-group.advert-contract.schedulingPlan}",
-        messageModel = MessageModel.CLUSTERING, selectorExpression = "ADVERT_CONTRACT_TOPIC_CS_GROUP") //topic为提前在rocketMq控制台中提前定义好
+@RocketMQMessageListener(topic = "${rocketmq.topic.test-mq.schedulingPlanTopic}", consumerGroup = "${rocketmq.consumer.cs-group.test-contract.schedulingPlan}",
+        messageModel = MessageModel.CLUSTERING, selectorExpression = "TEST_CONTRACT_TOPIC_CS_GROUP") //topic为提前在rocketMq控制台中提前定义好
 public class ListenerDemo implements RocketMQListener<MessageExt> {
     /**
      * Consumer 实现注意：
