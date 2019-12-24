@@ -12,7 +12,8 @@
 	<artifactId>spring-boot-rocketmq</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-rocketmq</name>
-	<description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
+    <description>Demo project for Spring Boot</description>
 
     <modules>
         <module>consumer</module>
@@ -24,7 +25,7 @@
 	</properties>
 
 	<dependencies>
-		
+
 	</dependencies>
 
 	<build>
