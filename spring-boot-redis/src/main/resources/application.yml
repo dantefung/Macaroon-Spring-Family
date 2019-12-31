@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: redis-demo
+  # \u73AF\u5883 local|dev|test|prod
+  profiles:
+    active: local
+  # jackson\u65F6\u95F4\u683C\u5F0F\u5316
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null # \u5168\u5C40jackson\u914D\u7F6E
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  redis:
+    open: true  # \u662F\u5426\u5F00\u542Fredis\u7F13\u5B58  true\u5F00\u542F   false\u5173\u95ED
+    database: 0
+    host: 127.0.0.1
+    port: 7379
+    password: yourpass    # \u5BC6\u7801\uFF08\u9ED8\u8BA4\u4E3A\u7A7A\uFF09
+    timeout: 6000ms  # \u8FDE\u63A5\u8D85\u65F6\u65F6\u957F\uFF08\u6BEB\u79D2\uFF09
+    jedis:
+      pool:
+        max-active: 1000  # \u8FDE\u63A5\u6C60\u6700\u5927\u8FDE\u63A5\u6570\uFF08\u4F7F\u7528\u8D1F\u503C\u8868\u793A\u6CA1\u6709\u9650\u5236\uFF09
+        max-wait: -1ms      # \u8FDE\u63A5\u6C60\u6700\u5927\u963B\u585E\u7B49\u5F85\u65F6\u95F4\uFF08\u4F7F\u7528\u8D1F\u503C\u8868\u793A\u6CA1\u6709\u9650\u5236\uFF09
+        max-idle: 10      # \u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5927\u7A7A\u95F2\u8FDE\u63A5
+        min-idle: 5       # \u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5
+  mvc:
+    throw-exception-if-no-handler-found: true
