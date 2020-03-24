@@ -15,6 +15,8 @@
     <modules>
         <module>spring-aop-demo</module>
         <module>spring-boot-rocketmq</module>
+        <module>spring-boot-actuator</module>
+        <module>spring-boot-autoconf</module>
     </modules>
 
     <properties>
