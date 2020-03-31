@@ -13,6 +13,7 @@ package com.dantefung.thinkinginspringbootsamples.main;
 
 import com.dantefung.thinkinginspringbootsamples.bean.UserPwdDto;
 import com.dantefung.thinkinginspringbootsamples.sample.asm.ClassPrinter;
+import com.dantefung.thinkinginspringbootsamples.sample.asm.SpringClassPrinter;
 import org.springframework.asm.ClassReader;
 
 /**
@@ -27,10 +28,20 @@ import org.springframework.asm.ClassReader;
 public class ClassPrinterBootstrap {
 
 	public static void main(String[] args) throws Exception {
-		ClassPrinter classPrinter = new ClassPrinter();
+		System.out.println("org.springframework.asm.*: ---------------START---------------");
+		SpringClassPrinter classPrinter = new SpringClassPrinter();
 		/*ClassReader classReader = new ClassReader(UserPwdDto.class.getName());*/
 		ClassReader classReader = new ClassReader(TransactionalServiceBeanBootstrap.class.getName());
 		classReader.accept(classPrinter,0);
+		System.out.println("org.springframework.asm.*: ---------------END---------------");
+		System.out.println("\r\n\r\n");
+
+		System.out.println("org.objectweb.asm.*:----------START-----------");
+		ClassPrinter clsPrinter = new ClassPrinter();
+		/*ClassReader classReader = new ClassReader(UserPwdDto.class.getName());*/
+		org.objectweb.asm.ClassReader clsReader = new org.objectweb.asm.ClassReader(UserPwdDto.class.getName());
+		clsReader.accept(clsPrinter,0);
+		System.out.println("org.objectweb.asm.*:------------END------------");
 
 	}
 }

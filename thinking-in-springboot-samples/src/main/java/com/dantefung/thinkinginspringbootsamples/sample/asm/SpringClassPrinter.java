@@ -12,8 +12,7 @@
 package com.dantefung.thinkinginspringbootsamples.sample.asm;
 
 
-
-import org.objectweb.asm.*;
+import org.springframework.asm.*;
 
 import static org.springframework.asm.Opcodes.ASM5;
 
@@ -23,13 +22,13 @@ import static org.springframework.asm.Opcodes.ASM5;
  * @author DANTE FUNG
  * @date 2020/3/30 17:15
  */
-public class ClassPrinter extends ClassVisitor {
+public class SpringClassPrinter extends ClassVisitor {
 
-	public ClassPrinter() {
+	public SpringClassPrinter() {
 		super(ASM5);
 	}
 
-	public ClassPrinter(int api, ClassVisitor classVisitor) {
+	public SpringClassPrinter(int api, ClassVisitor classVisitor) {
 		super(api, classVisitor);
 	}
 
