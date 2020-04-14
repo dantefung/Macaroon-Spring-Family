@@ -18,6 +18,7 @@
     <modules>
         <module>consumer</module>
         <module>producer</module>
+        <module>rocketMq</module>
     </modules>
 
 	<properties>
