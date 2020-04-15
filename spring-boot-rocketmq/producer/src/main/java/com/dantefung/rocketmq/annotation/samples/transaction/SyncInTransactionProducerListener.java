@@ -45,9 +45,22 @@ public class SyncInTransactionProducerListener implements RocketMQLocalTransacti
 		}
 	}
 
+	/**
+	 * Broker 回查调用的方法
+	 *
+	 * RMQ是通过Half-Message机制来实现MQ事务的，因此需要实现一个Listener来让RMQ 服务器端回调（回查）
+	 * ，当收不到Half-Message的确认消息（确认后才真正发送消息出去，让消费者接收到，否则消息会被标记为异常丢弃）。
+	 * 实现Listener 只需要继承 AbstractRocketMQLocalTransactionListener，然后重写实现自己的checkLocalTransaction方法即可，
+	 * 例如，在该方法中查询一下订单信息是否已经正常插入数据库，如果是就自动确认Half-Message，让消息发送出去。示例代码如下：
+	 * @param message
+	 * @return
+	 */
 	@Override
 	public RocketMQLocalTransactionState checkLocalTransaction(Message message) {
 		log.info("【执行检查任务】");
 		return RocketMQLocalTransactionState.UNKNOWN;
+		// 模拟检查之前DB事务是否正常提交，正常提交，则提交MQ事务。
+		//log.info("DB Transaction has been checked successfully! >>>>> ");
+		//return RocketMQLocalTransactionState.COMMIT;
 	}
 }
