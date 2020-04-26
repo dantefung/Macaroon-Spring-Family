@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--同步日志-->
+<configuration status="warn">
+
+    <!--定义变量-->
+    <!--<Properties>-->
+        <!--<property name="APP_NAME" value="rocket"/>-->
+        <!--<property name="LOG_PATH" value="./logs" />-->
+        <!--<Property name="OUT_LOG_LEVEL" value="info"/>-->
+        <!--<Property name="LOG_INFO_LEVEL" value="info"/>-->
+        <!--<Property name="LOG_ERROR_LEVEL" value="error"/>-->
+        <!--<Property name="LOG_HOME" value="./logs"/>-->
+        <!--<Property name="LOG_ARCHIVE" value="./logs/archive"/>-->
+        <!--<Property name="LOG_MODULE_NAME" value="netty-webSocket"/>-->
+        <!--<Property name="LOG_MAX_SIZE" value="100 MB"/>-->
+        <!--<Property name="LOG_QUANTITY" value="15"/>-->
+        <!--&lt;!&ndash;输出日志的格式：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度， %msg：日志消息，%n是换行符 &ndash;&gt;-->
+        <!--<Property name="LOG_PATTERN" value="%d [%t] %-5level %logger{0} - %msg%n"/>-->
+        <!--<Property name="LOG_CONSOLE_PATTERN" value="[%d{HH:mm:ss.SSS}] [%p] - %l - %m%n"/>-->
+        <!--<Property name="LOG_FILE_PATTERN" value="%d{HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>-->
+        <!--<Property name="TIME_BASED_INTERVAL" value="24"/>-->
+    <!--</Properties>-->
+
+    <!--输出日志-->
+    <Appenders>
+
+        <!--Console-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%p] - %l - %m%n"/>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+
+        <!--File-->
+        <File name="log" fileName="./logs/rocket.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+
+        <!--RollingFileAppender  info ~ error -->
+        <RollingRandomAccessFile  name="RollingFileInfo" fileName="./logs/rocket_info.log">
+            <FilePattern>./logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log</FilePattern>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="24"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingRandomAccessFile >
+
+        <!--RollingFileAppender  error ~  -->
+        <RollingRandomAccessFile  name="RollingFileError" fileName="./logs/rocket_error.log">
+            <FilePattern>./logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log</FilePattern>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="24"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingRandomAccessFile >
+
+    </Appenders>
+
+    <!--总控-->
+    <Loggers>
+        <root level="info">
+            <appender-ref ref="Console" />
+            <appender-ref ref="RollingFileInfo" />
+            <appender-ref ref="RollingFileError" />
+        </root>
+    </Loggers>
+
+</configuration>
