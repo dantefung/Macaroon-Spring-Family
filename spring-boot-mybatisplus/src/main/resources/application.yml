@@ -1,0 +1,65 @@
+management:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        jmx:
+            exposure:
+                include: '*'
+        web:
+            exposure:
+                include: '*'
+    server:
+        port: 8081
+server:
+    port: 8080
+spring:
+    application:
+        name: spring-boot-mybatisplus
+
+
+#mybatis
+mybatis-plus:
+  ######################################################################################
+  # 关于mapper-locations配置问题:
+  #  1、不配或者无效配置则默认加载与XxxMapper接口类路径下的xxxxMapper.xml文件;因此，遵循约定优于配置原则
+  #  请在resources目录下创建与XxxMapper接口一样的层级目录，以便打包后XxxMapper.java和XxxMapper.xml能归档到类路径同一目录下。
+  #  例如:com.utopa.os.kernel.datactr.report.mapper.PrkReportMapper
+  #  则请在 resources下创建com/utopa/os/kernel/datactr/report/mapper/**Mapper.xml
+  #  （Note: XxxMapper接口实例化为MapperFactoryBean时,checkDaoConfig()时加载)
+  #  2、配置请配置正确可加载的类路径地址，范围不能太大，以免匹配了第三方不必要jar内的xml文件,使用/分隔目录。例如:
+  #  mapper-locations: classpath*:/com/utopa/os/kernel/datactr/report/mapper/*.xml
+  #  (Note: 由初始化SqlSessionFactory时加载)
+  #
+  #  加载方式顺序:
+  #  1、第一次向Spring容器注册SqlSessionFactory并单例实例化的时候加载全部的XxxMapper.xml
+  #  2、XxxMapper接口实例化为MapperFactoryBean时,checkDaoConfig()时加载其对应XxxMapper.xml
+  #
+  #  classpath*: 扫描本工程以及jar内类路径下的资源
+  #  classpath: 只扫描本工程类路径下的资源
+  #
+  #  * 表示模糊匹配一个目录
+  #  ** 表示模糊匹配多级目录
+  #
+  ########################################################################################
+  mapper-locations: classpath*:/com/dantefung/sample/**/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.dantefung.sample.*.entity
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: NOT_NULL
+      #驼峰下划线转换
+      column-underline: true
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+    banner: false
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
