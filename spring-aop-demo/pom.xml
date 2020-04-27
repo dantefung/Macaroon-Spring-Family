@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
+        <hutool.version>4.6.1</hutool.version>
 	</properties>
 
 	<dependencies>
@@ -71,6 +72,12 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
