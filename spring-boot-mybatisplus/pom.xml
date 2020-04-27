@@ -15,6 +15,7 @@
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
         <mybatisplus.version>3.0.7.1</mybatisplus.version>
         <druid.version>1.1.13</druid.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -95,6 +96,11 @@
             <scope>compile</scope>
         </dependency>
         <!-- Swagger API文档 end-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

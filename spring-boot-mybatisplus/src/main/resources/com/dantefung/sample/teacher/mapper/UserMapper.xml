@@ -427,4 +427,16 @@
       </if>
     </trim>
   </insert>
+    <!--用于演示报表通用查询 SQL无实际意义-->
+    <select id="selectUserMonthReport" parameterType="hashmap" resultType="hashmap">
+        SELECT u.* FROM USER u
+        <where>
+            <if test="id neq null and id neq ''" >
+                WHERE u.id = #{id}
+            </if>
+        </where>
+    </select>
+    <select id="selectUserDailyReport" resultType="hashmap">
+        SELECT * FROM USER ;
+    </select>
 </mapper>
