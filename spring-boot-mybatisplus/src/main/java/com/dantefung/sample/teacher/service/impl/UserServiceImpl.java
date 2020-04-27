@@ -3,7 +3,7 @@ package com.dantefung.sample.teacher.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dantefung.sample.teacher.domain.User;
 import com.dantefung.sample.teacher.domain.UserExample;
-import com.dantefung.sample.mapper.UserMapper;
+import com.dantefung.sample.teacher.mapper.UserMapper;
 import com.dantefung.sample.teacher.service.UserService;
 import org.springframework.stereotype.Service;
 

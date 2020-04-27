@@ -1,3 +1,4 @@
+
 management:
     endpoint:
         health:
@@ -16,7 +17,8 @@ server:
 spring:
     application:
         name: spring-boot-mybatisplus
-
+    profiles:
+      active: dev
 
 #mybatis
 mybatis-plus:
@@ -42,7 +44,7 @@ mybatis-plus:
   #  ** 表示模糊匹配多级目录
   #
   ########################################################################################
-  mapper-locations: classpath*:/com/dantefung/sample/**/mapper/**/*.xml
+  mapper-locations: classpath*:/com/dantefung/**/mapper/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.dantefung.sample.*.entity
   global-config:
@@ -63,3 +65,4 @@ mybatis-plus:
     cache-enabled: false
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

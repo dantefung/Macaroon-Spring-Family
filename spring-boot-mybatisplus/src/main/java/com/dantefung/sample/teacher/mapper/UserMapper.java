@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dantefung.sample.teacher.domain.User;
 import com.dantefung.sample.teacher.domain.UserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**  
@@ -12,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
 * @author DANTE FUNG
 * @date 2020/4/26 15:16
 */
-
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
     long countByExample(UserExample example);
 
