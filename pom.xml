@@ -18,6 +18,8 @@
         <module>spring-boot-actuator</module>
         <module>spring-boot-autoconf</module>
         <module>thinking-in-springboot-samples</module>
+        <module>spring-boot-mybatisplus</module>
+        <module>spring-boot-redis</module>
     </modules>
 
     <properties>
