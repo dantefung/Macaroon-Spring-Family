@@ -13,6 +13,7 @@ package com.dantefung.aop.springaopdemo.web;
 
 import com.dantefung.aop.springaopdemo.annotation.AppControllerMapping;
 import com.dantefung.aop.springaopdemo.annotation.LogAppSysEvent;
+import com.dantefung.aop.springaopdemo.annotation.ResultKey;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -38,5 +39,11 @@ public class TestAppController {
 	@LogAppSysEvent(appsysid = APP_SYS_ID, eventcode = EVENT_CODE, remark = REMARK)
 	public String logRecord(String id,String userCode) {
 		return "ok!";
+	}
+
+	@GetMapping("/retWrapperTest")
+	@ResultKey
+	public String retWrapperTest() {
+		return "retWrapperTest success!";
 	}
 }
