@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
-        <spring.version>5.2.2.RELEASE</spring.version>
+        <spring.version>5.2.5.RELEASE</spring.version>
         <!--build-->
         <maven.source.plugin>3.0.1</maven.source.plugin>
     </properties>
