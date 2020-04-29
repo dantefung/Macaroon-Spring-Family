@@ -1,15 +1,11 @@
 package com.dantefung.sample.report.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dantefung.sample.core.entity.SqlConfig;
 import com.dantefung.sample.core.enums.ReportKeys;
 import com.dantefung.sample.core.result.Result;
 import com.dantefung.sample.core.service.CommonService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -20,6 +20,7 @@
         <module>thinking-in-springboot-samples</module>
         <module>spring-boot-mybatisplus</module>
         <module>spring-boot-redis</module>
+        <module>think-in-spring</module>
     </modules>
 
     <properties>

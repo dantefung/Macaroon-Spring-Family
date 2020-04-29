@@ -12,6 +12,7 @@
 
     <modules>
         <module>ioc-container-overview</module>
+        <module>spring-bean</module>
     </modules>
 
     <properties>
@@ -21,6 +22,8 @@
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
         <spring.version>5.2.5.RELEASE</spring.version>
         <!--build-->
+        <maven.release.plugin>2.5.3</maven.release.plugin>
+        <maven.deploy.plugin>2.8.2</maven.deploy.plugin>
         <maven.source.plugin>3.0.1</maven.source.plugin>
     </properties>
 
