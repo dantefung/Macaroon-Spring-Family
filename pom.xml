@@ -21,6 +21,7 @@
         <module>spring-boot-mybatisplus</module>
         <module>spring-boot-redis</module>
         <module>think-in-spring</module>
+        <module>spring-boot-redis-mq</module>
     </modules>
 
     <properties>

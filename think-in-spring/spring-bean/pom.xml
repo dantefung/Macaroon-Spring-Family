@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.dantefung</groupId>
+        <artifactId>think-in-spring</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.dantefung</groupId>
+    <artifactId>spring-bean</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spring-bean</name>
+    <description>Spring Bean 基础</description>
+
+    <dependencies>
+        <!-- Spring IoC 核心依赖 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- 复用 ioc-container-overview</artifactId> -->
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>ioc-container-overview</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dantefung</groupId>
+            <artifactId>ioc-container-overview</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+
+</project>
