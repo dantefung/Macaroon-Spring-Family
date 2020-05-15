@@ -121,11 +121,11 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- 添加scm支持 -->
+<!--	&lt;!&ndash; 添加scm支持 &ndash;&gt;
 	<scm>
-		<developerConnection>scm:git:http://10.186.140.84/os-server/os-common-pom.git</developerConnection>
+		<developerConnection>scm:git:http://xxxx/xxxxx-server/xxxx.git</developerConnection>
     <tag>HEAD</tag>
-  </scm>
+  </scm>-->
 
 	<build>
 		<plugins>
@@ -204,16 +204,16 @@
 	</build>
 
 	<!-- 发布maven私服配置 -->
-	<distributionManagement>
+<!--	<distributionManagement>
         <repository>
             <id>utopa-release</id>
             <name>Utopa Release Repository</name>
-            <url>https://nexus.utopaos.cn/repository/utopa-release/</url>
+            <url>https://xxxxxx/repository/utopa-release/</url>
         </repository>
 		<snapshotRepository>
 			<id>utopa-snapshot</id>
 			<name>Utopa Snapshots Repository</name>
-			<url>https://nexus.utopaos.cn/repository/utopa-snapshot/</url>
+			<url>https://xxxxxxxxx/repository/utopa-snapshot/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement>-->
 </project>
