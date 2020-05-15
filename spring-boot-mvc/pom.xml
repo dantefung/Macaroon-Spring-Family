@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.dantefung.comm</groupId>
+        <artifactId>spring-boot-common-pom</artifactId>
+        <version>1.0.6-SNAPSHOT</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.dantefung.mvc</groupId>
+    <artifactId>spring-boot-mvc</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+
+	<modules>
+		<module>spring-boot-mvc-api</module>
+		<module>spring-boot-mvc-microsvc</module>
+		<module>spring-boot-mvc-data-object</module>
+		<module>spring-boot-sign-plugin</module>
+	</modules>
+
+	<dependencies>
+		<!-- ======================================= -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.8</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

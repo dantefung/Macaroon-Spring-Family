@@ -1,0 +1,219 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>com.dantefung.comm</groupId>
+    <artifactId>spring-boot-common-pom</artifactId>
+    <version>1.0.6-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<modules>
+        <module>os-boot-core</module>
+    </modules>
+
+	<!-- 无特殊要求，项目统一依赖版本信息 -->
+	<properties>
+		<!-- PATH -->
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<resource.delimiter>@</resource.delimiter>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.release.plugin>2.5.3</maven.release.plugin>
+		<maven.deploy.plugin>2.8.2</maven.deploy.plugin>
+		<!-- DB -->
+		<mybatisplus.version>3.0.7.1</mybatisplus.version>
+		<mysql.version>8.0.11</mysql.version>
+		<mssql.version>4.0</mssql.version>
+		<oracle.version>11.2.0.3</oracle.version>
+		<druid.version>1.1.13</druid.version>
+		<quartz.version>2.3.0</quartz.version>
+		<spring.cloud.alibaba.seata.version>2.2.0.RELEASE</spring.cloud.alibaba.seata.version>
+		<seata.all.version>1.1.0</seata.all.version>
+		<!-- COMMON -->
+		<commons.lang.version>2.6</commons.lang.version>
+		<commons.fileupload.version>1.2.2</commons.fileupload.version>
+		<commons.io.version>2.5</commons.io.version>
+		<commons.codec.version>1.10</commons.codec.version>
+		<commons.configuration.version>1.10</commons.configuration.version>
+		<!-- Test -->
+		<junit.jupiter.version>5.6.0</junit.jupiter.version>
+		<junit.platform.launcher.version>1.3.2</junit.platform.launcher.version>
+		<curator.test.version>4.2.0</curator.test.version>
+		<!-- Other -->
+		<shiro.version>1.4.0</shiro.version>
+		<jwt.version>0.7.0</jwt.version>
+		<kaptcha.version>0.0.9</kaptcha.version>
+		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
+		<aliyun.oss.version>2.8.3</aliyun.oss.version>
+		<qcloud.cos.version>4.4</qcloud.cos.version>
+		<zookeeper.version>3.5.6</zookeeper.version>
+		<guava.version>28.1-jre</guava.version>
+		<swagger.version>2.7.0</swagger.version>
+		<joda.time.version>2.9.9</joda.time.version>
+		<fastjson.version>1.2.47</fastjson.version>
+		<hutool.version>4.6.1</hutool.version>
+		<lombok.version>1.18.4</lombok.version>
+		<mybatis.spring.boot>1.3.2</mybatis.spring.boot>
+		<transmittable.version>2.11.0</transmittable.version>
+		<apollo.version>1.5.1</apollo.version>
+		<ant.version>1.9.7</ant.version>
+		<!-- spring cloud 配置 -->
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		<spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+		<spring.cloud.commons>2.0.2.RELEASE</spring.cloud.commons>
+		<txlcn.version>5.0.2.RELEASE</txlcn.version>
+		<!-- build -->
+		<jacoco.maven.plugin>0.8.1</jacoco.maven.plugin>
+		<maven.surefire.plugin>2.22.2</maven.surefire.plugin>
+		<maven.failsafe.plugin>2.22.2</maven.failsafe.plugin>
+		<maven.source.plugin>3.0.1</maven.source.plugin>
+		<spring.boot.maven.plugin>2.1.6.RELEASE</spring.boot.maven.plugin>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>transmittable-thread-local</artifactId>
+			<version>${transmittable.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>${hutool.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 添加scm支持 -->
+	<scm>
+		<developerConnection>scm:git:http://10.186.140.84/os-server/os-common-pom.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+	<build>
+		<plugins>
+			<!-- Java Compile Configurate
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>-->
+			<!-- 测试执行-->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.plugin}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven.failsafe.plugin}</version>
+			</plugin>
+			<!-- 代码覆盖率检测 -->
+			<plugin>
+	            <groupId>org.jacoco</groupId>
+	            <artifactId>jacoco-maven-plugin</artifactId>
+	            <version>${jacoco.maven.plugin}</version>
+	            <configuration>
+	                <skip>false</skip>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>prepare-agent</goal>
+	                    </goals>
+	                </execution>
+	                <execution>
+	                    <configuration>
+	                        <outputDirectory>${basedir}/target/coverage-reports</outputDirectory>
+	                    </configuration>
+	                    <id>report</id>
+	                    <phase>test</phase>
+	                    <goals>
+	                        <goal>report</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+			<!-- maven私服版本管理 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven.release.plugin}</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<tagNameFormat>${project.artifactId}-${project.version}</tagNameFormat>
+					<generateReleasePoms>false</generateReleasePoms>
+					<arguments>-DskipTests</arguments>
+					<preparationGoals>clean deploy</preparationGoals>
+				</configuration>
+			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-source-plugin</artifactId>
+	            <version>${maven.source.plugin}</version>
+	            <executions>
+	                <execution>
+	                    <id>attach-sources</id>
+	                    <goals>
+	                        <goal>jar</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+		</plugins>
+	</build>
+
+	<!-- 发布maven私服配置 -->
+	<distributionManagement>
+        <repository>
+            <id>utopa-release</id>
+            <name>Utopa Release Repository</name>
+            <url>https://nexus.utopaos.cn/repository/utopa-release/</url>
+        </repository>
+		<snapshotRepository>
+			<id>utopa-snapshot</id>
+			<name>Utopa Snapshots Repository</name>
+			<url>https://nexus.utopaos.cn/repository/utopa-snapshot/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

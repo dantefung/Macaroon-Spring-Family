@@ -22,6 +22,8 @@
         <module>spring-boot-redis</module>
         <module>think-in-spring</module>
         <module>spring-boot-redis-mq</module>
+        <module>spring-boot-mvc</module>
+        <module>spring-boot-common-pom</module>
     </modules>
 
     <properties>
