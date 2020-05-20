@@ -4,26 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dantefung</groupId>
-    <artifactId>Macaroon-Spring-Family</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>thinking-in-spring-boot</groupId>
+    <artifactId>thinking-in-springboot</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Macaroon-Spring-Family</name>
+    <name>thinking-in-springboot</name>
     <description>Demo project for Spring Boot</description>
 
     <modules>
-        <module>spring-aop-demo</module>
-        <module>spring-boot-rocketmq</module>
-        <module>spring-boot-actuator</module>
-        <module>spring-boot-autoconf</module>
-        <module>thinking-in-springboot</module>
-        <module>spring-boot-mybatisplus</module>
-        <module>spring-boot-redis</module>
-        <module>think-in-spring</module>
-        <module>spring-boot-redis-mq</module>
-        <module>spring-boot-mvc</module>
-        <module>spring-boot-common-pom</module>
+        <module>thinking-in-springboot-samples</module>
+        <module>spring-framework-samples</module>
     </modules>
 
     <properties>

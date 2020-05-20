@@ -1,0 +1,5 @@
+thinking\in\spring\boot\samples\spring25\bootstrap\DerivedComponentAnnotationBootstrap.class
+thinking\in\spring\boot\samples\spring25\bean\ComponentBean.class
+thinking\in\spring\boot\samples\spring25\repository\AutowiredBeanHolder.class
+thinking\in\spring\boot\samples\spring25\annotation\StringRepository.class
+thinking\in\spring\boot\samples\spring25\repository\NameRepository.class

@@ -14,7 +14,7 @@ import java.util.Properties;
 @Slf4j
 public class PropertiesConfig {
     public static Properties properties;
-    private static final String PROPERTIES_PATH = System.getProperties().get("user.dir") + "\\producer\\src\\main\\resources\\config.properties";
+    private static final String PROPERTIES_PATH = System.getProperties().get("user.dir") + "\\producer\\src\\samples\\resources\\config.properties";
     public static final String producerGroup = get("producerGroup");
     public static final String namervAddr = get("namervAddr");
     public static final String topic = get("topic");
