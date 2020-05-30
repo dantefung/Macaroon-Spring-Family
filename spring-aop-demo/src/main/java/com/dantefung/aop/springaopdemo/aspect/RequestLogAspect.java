@@ -43,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnProperty(value = LogLevel.REQ_LOG_PROPS_PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 public class RequestLogAspect {
+
 	private final RequestLogProperties properties;
 	private final ObjectMapper objectMapper;
 

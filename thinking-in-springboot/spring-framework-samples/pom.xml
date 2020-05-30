@@ -17,7 +17,7 @@
     <properties>
         <!-- Spring Framework 5.0 最新的版本 -->
         <!-- 子模块工程根据版本需要，调整 spring.version 属性 -->
-        <spring.version>3.2.9.RELEASE</spring.version>
+        <spring.version>5.1.4.RELEASE</spring.version>
     </properties>
 
     <modules>
@@ -60,4 +60,17 @@
 
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

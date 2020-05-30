@@ -48,6 +48,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <!-- 忽略错误，当web.xml不存在时 -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
