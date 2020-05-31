@@ -1,0 +1,5 @@
+thinking/in/spring/boot/samples/spring3/bootstrap/HierarchicalDerivedComponentAnnotationBootstrap.class
+thinking/in/spring/boot/samples/spring3/repository/MyFirstLevelRepository.class
+thinking/in/spring/boot/samples/spring3/annotation/SecondLevelRepository.class
+thinking/in/spring/boot/samples/spring3/repository/MySecondLevelRepository.class
+thinking/in/spring/boot/samples/spring3/annotation/FirstLevelRepository.class
