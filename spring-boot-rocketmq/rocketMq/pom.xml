@@ -33,7 +33,7 @@
         <redisson.version>3.11.2</redisson.version>
         <lombok.version>1.18.8</lombok.version>
         <fastjson.version>1.2.58</fastjson.version>
-        <log4j2.version>2.6.2</log4j2.version>
+        <log4j2.version>2.13.3</log4j2.version>
         <springboot.version>2.1.6.RELEASE</springboot.version>
         <springboot.rocket.version>2.0.3</springboot.rocket.version>
     </properties>
