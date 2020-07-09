@@ -1,8 +1,0 @@
-#
-#Sun May 31 13:27:04 CST 2020
-thinking.in.spring.boot.samples.spring5.config.AnnotationIndexedConfiguration=org.springframework.stereotype.Component,thinking.in.spring.boot.samples.spring5.config.AnnotationIndexedConfiguration
-thinking.in.spring.boot.samples.spring5.bootstrap.TransactionalServiceBeanBootstrap=org.springframework.stereotype.Component
-thinking.in.spring.boot.samples.spring5.bean.TransactionalServiceBean=org.springframework.stereotype.Component
-thinking.in.spring.boot.samples.spring5.bootstrap.TransactionalServiceAnnotationReflectionBootstrap=org.springframework.stereotype.Component
-thinking.in.spring.boot.samples.spring5.bootstrap.TransactionalServiceAnnotationMetadataBootstrap=org.springframework.stereotype.Component
-thinking.in.spring.boot.samples.spring5.bootstrap.TransactionalServiceStandardAnnotationMetadataBootstrap=org.springframework.stereotype.Component

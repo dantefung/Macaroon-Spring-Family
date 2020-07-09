@@ -24,6 +24,7 @@
         <module>spring-boot-redis-mq</module>
         <module>spring-boot-mvc</module>
         <module>spring-boot-common-pom</module>
+        <module>starter-samples</module>
     </modules>
 
     <properties>
