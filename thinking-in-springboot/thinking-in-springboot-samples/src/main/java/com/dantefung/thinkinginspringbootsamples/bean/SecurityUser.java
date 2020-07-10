@@ -1,19 +1,28 @@
 package com.dantefung.thinkinginspringbootsamples.bean;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 模拟权限用户
  */
 public class SecurityUser {
+
+	public static final String DEFAULT_ROLE_NAME = "admin";
 	private Long userId;
 	private String name;
 	private Set<String> roles = new HashSet<>();
 	private Set<String> permissions = new HashSet<>();
 	private Map<String, String> extraParams = new HashMap<>();
+	List<SecurityUser> securityUsers;
+
+	public SecurityUser() {
+
+	}
+
+	public SecurityUser(Long userId, String name) {
+		this.userId = userId;
+		this.name = name;
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -53,5 +62,19 @@ public class SecurityUser {
 
 	public Map<String, String> getExtraParams() {
 		return this.extraParams;
+	}
+
+	public List<SecurityUser> getSecurityUsers() {
+		return securityUsers;
+	}
+
+	public void setSecurityUsers(List<SecurityUser> securityUsers) {
+		this.securityUsers = securityUsers;
+	}
+
+	@Override
+	public String toString() {
+		return "SecurityUser{" + "userId=" + userId + ", name='" + name + '\'' + ", roles=" + roles + ", permissions="
+				+ permissions + ", extraParams=" + extraParams + ", securityUsers=" + securityUsers + '}';
 	}
 }
