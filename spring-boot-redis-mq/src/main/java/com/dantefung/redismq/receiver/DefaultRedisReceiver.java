@@ -22,7 +22,6 @@ public class DefaultRedisReceiver implements RedisReceiver {
 	/**
 	 * 此方法会被反射调用
 	 */
-	@Override
 	public void receiveMessage(String message) {
 		log.info("=======================receiveMessage========================");
 		log.info("接收到来自{}频道的消息:{}", Constant.CHANNEL, message);
