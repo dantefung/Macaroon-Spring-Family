@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dantefung.sample.teacher.domain.User;
 import com.dantefung.sample.teacher.domain.UserExample;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -33,4 +34,8 @@ public interface UserMapper extends BaseMapper<User> {
     int insertOrUpdate(User record);
 
     int insertOrUpdateSelective(User record);
+
+	Map<String, Object> selectUserMonthReport(Map<String,String> params);
+
+	Map<String, String> selectUserDailyReport();
 }

@@ -3,7 +3,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/teacher?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+      #url: jdbc:mysql://127.0.0.1:3306/teacher?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+      url: jdbc:mysql://127.0.0.1:3306/teacher?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
       username: root
       password: root
       initial-size: 10
@@ -36,4 +37,36 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+
+
+## 是否开启多数据源配置
+configuration:
+  switch:
+    dynamic:
+      datasource:
+        enabled: false
+
+dynamic:
+  datasource:
+    mainKey:
+      #MySQL配置
+      dbType: mysql
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3307/easycode?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: root
+    sqliteKey:
+      dbType: sqlite
+      driver-class-name: org.sqlite.JDBC
+      url: jdbc:sqlite:data/martini.db?date_string_format=yyyy-MM-dd HH:mm:ss
+      username:
+      password:
+
+
+
+
+
+
+
+
 
