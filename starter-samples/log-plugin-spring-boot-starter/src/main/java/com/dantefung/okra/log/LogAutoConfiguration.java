@@ -33,7 +33,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @RequiredArgsConstructor
 @ConditionalOnWebApplication
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
+@Configuration
 @Slf4j
 public class LogAutoConfiguration {
 
@@ -50,4 +51,6 @@ public class LogAutoConfiguration {
 		log.info("======>开始自动装配SysLogAspect...");
 		return new SysLogAspect();
 	}
+
+
 }

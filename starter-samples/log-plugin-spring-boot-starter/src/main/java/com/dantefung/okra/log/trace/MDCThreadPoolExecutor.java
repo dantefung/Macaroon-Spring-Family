@@ -37,8 +37,32 @@ public class MDCThreadPoolExecutor extends ThreadPoolExecutor {
 			TimeUnit unit,
 			BlockingQueue<Runnable> workQueue) {
 		this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
-				Executors.defaultThreadFactory(), defaultHandler);
+				new NamedThreadFactory("MDC-executor"), defaultHandler);
 	}
+
+	/**
+	 * @Description:
+	 * @param corePoolSize: 核心线程池大小
+	 * @param maximumPoolSize: 最大线程池大小
+	 * @param keepAliveTime: 线程最大空闲时间
+	 * @param unit: 时间单位
+	 * @param workQueue: 线程等待队列
+	 * @param threadFactory: 线程创建工厂
+	 * @return:
+	 * @Author: DANTE FUNG
+	 * @Date: 2020/11/4
+	 */
+	public MDCThreadPoolExecutor(int corePoolSize,
+			int maximumPoolSize,
+			long keepAliveTime,
+			TimeUnit unit,
+			BlockingQueue<Runnable> workQueue,
+			ThreadFactory threadFactory) {
+		this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
+				threadFactory == null ? new NamedThreadFactory("MDC-executor") : threadFactory, defaultHandler);
+	}
+
+
 
 	/**
 	 * @Description:

@@ -2,8 +2,10 @@ package com.dantefung.okra.log.controller;
 
 import com.dantefung.okra.log.annontation.LogTrace;
 import com.dantefung.okra.log.annontation.SysLog;
+import com.dantefung.okra.log.async.PersonManager;
 import com.dantefung.okra.log.trace.MDCThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,9 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @RequestMapping("/test")
 public class TestController {
 
+	@Autowired
+	private PersonManager personManager;
+
 	@SysLog("title is ok!")
 	@LogTrace
 	@RequestMapping("/ok")
@@ -30,6 +35,18 @@ public class TestController {
 
 			log.info("===============> 子线程 ...");
 		}, pool);
+
+		personManager.printTaskExecutor();
+		
+		// 模拟异常
+		personManager.sayError();
+
 		return "ok!";
+	}
+
+	@RequestMapping("/trace")
+	public String trace() {
+		log.info("==========> enter {}.trace() method ...", this.getClass().getSimpleName());
+		return "trace!";
 	}
 }

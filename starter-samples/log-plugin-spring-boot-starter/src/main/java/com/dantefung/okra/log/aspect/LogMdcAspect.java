@@ -1,18 +1,18 @@
 package com.dantefung.okra.log.aspect;
 
 import com.dantefung.okra.log.annontation.LogTrace;
+import com.dantefung.okra.log.util.TraceIdUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
-import java.util.UUID;
 
 @Aspect
 @Component
@@ -42,9 +42,17 @@ public class LogMdcAspect {
 				value = targetLogTrace.value();
 			}
 		}
-		MDC.put(UNIQUE_ID, UNIQUE_ID + ":" + value + ":" + UUID.randomUUID().toString().replace("-", ""));
-		Object result = point.proceed();// 执行方法
-		MDC.remove(UNIQUE_ID);
+		String traceId = TraceIdUtil.getTraceId();
+		if (StringUtils.isEmpty(traceId)) {
+			TraceIdUtil.setTraceId(this.getClass().getSimpleName() + ":" + value + ":" + TraceIdUtil.genTraceId());
+		}
+
+		Object result = null;
+		try {
+			result = point.proceed();// 执行方法
+		} finally {
+			TraceIdUtil.clearTraceId();
+		}
 		return result;
 	}
 }
