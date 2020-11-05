@@ -1,9 +1,11 @@
 package com.dantefung.okra.log.async;
 
+import com.dantefung.okra.log.annontation.LogTrace;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executor;
@@ -60,4 +62,12 @@ public class PersonManager {
 		}
 		return future;
 	}
+
+	// 推荐像定时器这样的用@LogTrace
+	@LogTrace
+	@Scheduled(cron = "0/5 * * * * ?")
+	public void testScheduled() {
+		log.info(" scheduling ...");
+	}
+
 }

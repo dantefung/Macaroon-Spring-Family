@@ -26,6 +26,7 @@ public class SysLogAspect {
 	@Around("@annotation(sysLog)")
 	@SneakyThrows
 	public Object around(ProceedingJoinPoint point, com.dantefung.okra.log.annontation.SysLog sysLog) {
+		log.info("\r\n\r\n<======================SysLogAspect切面开始...===================>\r\n\r\n");
 		String strClassName = point.getTarget().getClass().getName();
 		String strMethodName = point.getSignature().getName();
 		log.debug("[类名]:{},[方法]:{}", strClassName, strMethodName);
@@ -38,6 +39,7 @@ public class SysLogAspect {
 		Long endTime = System.currentTimeMillis();
 		logVo.setTime(endTime - startTime);
 		applicationEventPublisher.publishEvent(new SysLogEvent(logVo));
+		log.info("\r\n\r\n<======================SysLogAspect切面结束...===================>\r\n\r\n");
 		return obj;
 	}
 

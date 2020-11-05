@@ -1,4 +1,4 @@
-package com.dantefung.okra.log.trace;
+package com.dantefung.okra.log.trace.wrap;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

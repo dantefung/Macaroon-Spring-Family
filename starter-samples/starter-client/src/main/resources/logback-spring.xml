@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <!-- 自定义属性信息 -->
-    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36}-[%X{traceRootId}] : %msg%n"/>
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36}-[%X{traceId}] : %msg%n"/>
     <!-- 日志文件优先使用logging.file的值，如果没有则使用logging.path的值，如果还没有则放入临时目录 -->
     <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}running.log}"/>
     <property name="LOG_FILE_MAX_SIZE" value="500MB"/>

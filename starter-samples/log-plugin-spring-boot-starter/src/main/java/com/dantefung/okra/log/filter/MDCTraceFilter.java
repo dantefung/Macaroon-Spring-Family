@@ -14,7 +14,7 @@ public class MDCTraceFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
+		log.info("--------> Initializing MDCTraceFilter ...");
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class MDCTraceFilter implements Filter {
 			traceId = TraceIdUtil.genTraceId();
 		}
 		//设置traceId
-		TraceIdUtil.setTraceId(traceId);
+		TraceIdUtil.setTraceId(this.getClass().getSimpleName() + "<generated>:" + TraceIdUtil.TRACE_ID + ":" + traceId);
 		log.info(">>>>>>>>>>>>>>> initTraceId: {}", traceId);
 	}
 

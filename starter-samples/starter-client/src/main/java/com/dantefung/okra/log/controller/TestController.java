@@ -3,7 +3,8 @@ package com.dantefung.okra.log.controller;
 import com.dantefung.okra.log.annontation.LogTrace;
 import com.dantefung.okra.log.annontation.SysLog;
 import com.dantefung.okra.log.async.PersonManager;
-import com.dantefung.okra.log.trace.MDCThreadPoolExecutor;
+import com.dantefung.okra.log.trace.wrap.MDCThreadPoolExecutor;
+import com.dantefung.okra.log.util.ThreadMdcUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,8 @@ public class TestController {
 	@Autowired
 	private PersonManager personManager;
 
-	@SysLog("title is ok!")
 	@LogTrace
+	@SysLog("title is ok!")
 	@RequestMapping("/ok")
 	public String ok() {
 		log.info("==========> enter {}.ok() method ...", this.getClass().getSimpleName());
@@ -33,8 +34,14 @@ public class TestController {
 				100, MILLISECONDS, new ArrayBlockingQueue<>(5));
 		CompletableFuture.runAsync(() ->{
 
-			log.info("===============> 子线程 ...");
+			log.info("===============> 子线程,测试MDCThreadPoolExecutor ...");
 		}, pool);
+
+		ThreadPoolExecutor pool2 = new ThreadMdcUtil.ThreadPoolExecutorMdcWrapper(3, 5,
+				100, MILLISECONDS, new ArrayBlockingQueue<>(5));
+		CompletableFuture.runAsync(() ->{
+			log.info("===============> 子线程, 测试ThreadPoolExecutorMdcWrapper ...");
+		}, pool2);
 
 		personManager.printTaskExecutor();
 		

@@ -16,6 +16,7 @@ package com.dantefung.okra.log;/*
  *
  */
 
+import com.dantefung.okra.log.aspect.LogMdcAspect;
 import com.dantefung.okra.log.aspect.SysLogAspect;
 import com.dantefung.okra.log.event.SysLogListener;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -30,6 +32,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @date 2019/2/1
  * 日志自动配置
  */
+//@EnableAspectJAutoProxy(proxyTargetClass=true)
 @EnableAsync
 @RequiredArgsConstructor
 @ConditionalOnWebApplication
@@ -50,6 +53,12 @@ public class LogAutoConfiguration {
 	public SysLogAspect sysLogAspect() {
 		log.info("======>开始自动装配SysLogAspect...");
 		return new SysLogAspect();
+	}
+
+	@Bean
+	public LogMdcAspect logMdcAspect() {
+		log.info("--------> 开始自动装配:{} ...", LogMdcAspect.class.getSimpleName());
+		return new LogMdcAspect();
 	}
 
 

@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class TraceIdUtil {
 
-    private static final String TRACE_ID = "traceRootId";
+    public static final String TRACE_ID = "traceId";
 
     /**
      * 当traceId为空时，显示的traceId。随意。
