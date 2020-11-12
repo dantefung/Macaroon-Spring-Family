@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.dantefung.okra.log.LogAutoConfiguration
+    com.dantefung.okra.log.LogAutoConfiguration,\
+    com.dantefung.okra.log.LogFeignAutoConfiguration
 org.springframework.context.ApplicationContextInitializer=\
     com.dantefung.okra.log.init.ApplicationLoggerInitializer
