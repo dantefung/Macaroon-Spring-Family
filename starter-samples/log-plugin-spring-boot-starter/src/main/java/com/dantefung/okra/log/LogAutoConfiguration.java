@@ -18,6 +18,7 @@ package com.dantefung.okra.log;/*
 
 import com.dantefung.okra.log.aspect.LogMdcAspect;
 import com.dantefung.okra.log.aspect.SysLogAspect;
+import com.dantefung.okra.log.common.web.TLogWebConfig;
 import com.dantefung.okra.log.event.SysLogListener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +61,4 @@ public class LogAutoConfiguration {
 		log.info("--------> 开始自动装配:{} ...", LogMdcAspect.class.getSimpleName());
 		return new LogMdcAspect();
 	}
-
-
 }

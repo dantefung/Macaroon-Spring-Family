@@ -26,6 +26,9 @@
         <module>spring-boot-common-pom</module>
         <module>starter-samples</module>
         <module>litespring</module>
+        <module>spring-validation</module>
+        <module>spring-event</module>
+        <module>spring-boot-router-tree</module>
     </modules>
 
     <properties>

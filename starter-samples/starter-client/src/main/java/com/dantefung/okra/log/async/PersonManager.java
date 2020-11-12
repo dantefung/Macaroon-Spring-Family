@@ -64,8 +64,8 @@ public class PersonManager {
 	}
 
 	// 推荐像定时器这样的用@LogTrace
-	@LogTrace
-	@Scheduled(cron = "0/5 * * * * ?")
+	//@LogTrace
+	//@Scheduled(cron = "0/5 * * * * ?")
 	public void testScheduled() {
 		log.info(" scheduling ...");
 	}
