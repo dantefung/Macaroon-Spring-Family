@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: JSR303 Sample
+  # \u56FD\u9645\u5316
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0\u6574\u5408Demo
+  try-host: http://localhost:${server.port}

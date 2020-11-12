@@ -29,6 +29,7 @@ public class UserFactoryBean implements FactoryBean {
 
     @Override
     public Object getObject() throws Exception {
+		// 这里可以灵活的创建 Bean，如：代理、修饰
         return User.createUser();
     }
 

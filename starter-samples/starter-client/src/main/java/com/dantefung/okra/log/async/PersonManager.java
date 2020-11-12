@@ -70,4 +70,8 @@ public class PersonManager {
 		log.info(" scheduling ...");
 	}
 
+	public void testCallable() {
+
+	}
+
 }

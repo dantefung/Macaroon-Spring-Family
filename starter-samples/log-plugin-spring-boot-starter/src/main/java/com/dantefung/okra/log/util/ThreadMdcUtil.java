@@ -15,7 +15,7 @@ public class ThreadMdcUtil {
 	  }
 
 	
-	private static final String UNIQUE_ID = "traceRootId";
+	private static final String UNIQUE_ID = "traceId";
 
     public static void setTraceIdIfAbsent() {
         if (MDC.get(UNIQUE_ID) == null) {
