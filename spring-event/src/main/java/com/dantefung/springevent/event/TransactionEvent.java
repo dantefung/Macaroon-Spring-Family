@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationEvent;
 
 /**
  * @Title: TransactionEvent
- * @Description: 考勤模块事务事件
+ * @Description: 事务事件
  * @author DANTE FUNG
  * @date 2020/7/13 17:03
  */

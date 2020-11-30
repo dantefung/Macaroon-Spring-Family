@@ -29,6 +29,9 @@
         <module>spring-validation</module>
         <module>spring-event</module>
         <module>spring-boot-router-tree</module>
+        <module>spring-boot-batch-series</module>
+        <module>spring-boot-cache</module>
+        <module>spring-boot-retry</module>
     </modules>
 
     <properties>

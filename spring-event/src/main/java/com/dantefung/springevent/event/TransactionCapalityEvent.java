@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 /**
  * @Title: TransactionCapalityEvent
- * @Description: 抽象的考勤业务事件
+ * @Description: 提供事务能力事件
  * @author DANTE FUNG
  * @date 2020/7/13 17:04
  */

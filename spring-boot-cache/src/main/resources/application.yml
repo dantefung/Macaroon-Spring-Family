@@ -1,0 +1,10 @@
+server:
+  port: 4001
+
+
+
+
+spring:
+  cache:
+    ehcache:
+      config: classpath:ehcache-failsafe.xml
