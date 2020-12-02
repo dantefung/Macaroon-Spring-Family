@@ -22,7 +22,7 @@
         <module>log-example-eureka</module>
         <module>log-example-logback-feign-consumer</module>
         <module>log-example-logback-feign-provider</module>
-        <!--<module>log-example-logback-feign-provider-second</module>-->
+        <module>log-example-logback-feign-provider-second</module>
     </modules>
 
     <!--让子模块可以找到依赖的版本-->
