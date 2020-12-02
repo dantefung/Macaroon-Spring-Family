@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.SortParameters.Order;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.data.redis.core.script.RedisScript;
 
@@ -280,6 +281,14 @@ public class RedisService {
 			return stringRedisTemplate.opsForZSet().reverseRangeWithScores(key, start, start+limit);
 		}
 		
+	}
+
+	public Long removeZRange(String key, long start,long limit) {
+		return stringRedisTemplate.opsForZSet().removeRange(key, start, limit);
+	}
+
+	public ZSetOperations zSetOperations() {
+		return stringRedisTemplate.opsForZSet();
 	}
 	
 	
