@@ -14,23 +14,24 @@ package com.dantefung.springbootretry.controller;
 import com.dantefung.springbootretry.service.PayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.remoting.RemoteAccessException;
 import org.springframework.retry.RecoveryCallback;
 import org.springframework.retry.RetryCallback;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.RetryPolicy;
+import org.springframework.retry.annotation.CircuitBreaker;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.backoff.ThreadWaitSleeper;
-import org.springframework.retry.interceptor.MethodInvocationRetryCallback;
-import org.springframework.retry.listener.MethodInvocationRetryListenerSupport;
-import org.springframework.retry.policy.*;
+import org.springframework.retry.policy.ExceptionClassifierRetryPolicy;
+import org.springframework.retry.policy.NeverRetryPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.policy.TimeoutRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Method;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +70,26 @@ public class HelloController {
 		log.info("剩余的数量===" + remainingnum);
 		return "库库存成功";
 	}
+
+	// 实现类正常方法
+	// openTimeout时间范围内失败maxAttempts次数后，熔断打开resetTimeout时长
+	@GetMapping("/breaker")
+	@CircuitBreaker(maxAttempts = 3, openTimeout = 3000L, resetTimeout = 5000L )
+	public String normalMethod(String param) {
+		log.info("======== normalMethod ======== " + param);
+		if (true) {
+			throw new RuntimeException("方法异常");
+		}
+		return param;
+	}
+
+	// 降级方法
+	@Recover
+	public String recoverMethod(Throwable t, String param) {
+		log.info("======== recoverMethod ======== " + param);
+		return param;
+	}
+
 
 	/**
 	 * 参见： https://github.com/spring-projects/spring-retry
