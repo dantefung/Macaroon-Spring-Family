@@ -20,7 +20,7 @@ public class SignConfiguration {
     public static final String KEY_PUBLIC_KEY = "publicKey";
 
     @Bean
-    @LoadBalanced
+    //@LoadBalanced
     @ConditionalOnMissingBean
     public RestTemplate restTemplate() {
         return new RestTemplate();

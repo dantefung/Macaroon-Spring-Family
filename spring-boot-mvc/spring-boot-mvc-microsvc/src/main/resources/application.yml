@@ -9,3 +9,8 @@ boot:
   sign:  #响应签名公私钥
     privateKey: spring-boot-mvc-microsvc.prj  #存放应用方的私钥文本文件（classpath路径下）
     publicKey: spring-boot-mvc-microsvc.pub  #存放应用方的公钥文本文件 (classpath路径)
+
+spring:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false

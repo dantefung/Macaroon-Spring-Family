@@ -11,10 +11,10 @@
  */
 package com.dantefung.springmvc.controller;
 
+import com.dantefung.springbootmvc.annotation.LoginUser;
 import com.dantefung.springbootmvc.annotation.RequireSign;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.dantefung.springbootmvc.resolver.TokenInfo;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +36,16 @@ public class TestController {
 		map.put("code","200");
 		map.put("success", true);
 		map.put("result", null);
+		return map;
+	}
+
+	@GetMapping("/inject")
+	public Map inject(@LoginUser TokenInfo tokenInfo) {
+		System.out.println(tokenInfo);
+		Map map = new HashMap();
+		map.put("code","200");
+		map.put("success", true);
+		map.put("result", tokenInfo);
 		return map;
 	}
 }
