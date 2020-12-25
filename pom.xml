@@ -32,6 +32,7 @@
         <module>spring-boot-batch-series</module>
         <module>spring-boot-cache</module>
         <module>spring-boot-retry</module>
+        <module>spring-boot-freemarker</module>
     </modules>
 
     <properties>
