@@ -15,12 +15,16 @@
     <modules>
         <module>thinking-in-springboot-samples</module>
         <module>spring-framework-samples</module>
+        <module>spring-boot-2.0-samples</module>
+        <module>shared-libraries</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <!-- 打包时忽略测试代码 -->
         <skipTests>true</skipTests>
     </properties>
@@ -30,8 +34,18 @@
     </dependencies>
 
     <build>
-
-
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
