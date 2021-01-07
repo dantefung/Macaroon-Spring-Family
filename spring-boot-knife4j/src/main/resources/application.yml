@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: spring-boot-knife4j
+server:
+  port: 8080
+
+
