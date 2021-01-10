@@ -2,6 +2,10 @@
 
 ## Cache & CacheManager
 
+**Cache**的实现类: `AbstractValueAdaptingCache`、`RedisCache extends AbstractValueAdaptingCache`...
+
+**CacheManager**的实现类: `CaffeineCacheManager`、`EhCacheCacheManager`、`JCacheCacheManager` 、`RedisCacheManager`...
+AbstractTransactionSupportingCacheManager
 ```
 public abstract class AbstractCacheManager implements CacheManager, InitializingBean {
 
@@ -43,6 +47,31 @@ public abstract class AbstractCacheManager implements CacheManager, Initializing
 	 ... ...
 }	
 ```
+
+
+```
+public class EhCacheCacheManager extends AbstractCacheManager {
+
+... ...
+
+	@Override
+	protected Collection<Cache> loadCaches() {
+		Assert.notNull(this.cacheManager, "A backing EhCache CacheManager is required");
+		Status status = this.cacheManager.getStatus();
+		Assert.isTrue(Status.STATUS_ALIVE.equals(status),
+				"An 'alive' EhCache CacheManager is required - current cache is " + status.toString());
+
+		String[] names = this.cacheManager.getCacheNames();
+		Collection<Cache> caches = new LinkedHashSet<Cache>(names.length);
+		for (String name : names) {
+			caches.add(new EhCacheCache(this.cacheManager.getEhcache(name)));
+		}
+		return caches;
+	}
+... ...
+}
+```
+
 ## @Cacheable & @CacheEvict & @CachePut
 由CacheAspectSupport处理.
 

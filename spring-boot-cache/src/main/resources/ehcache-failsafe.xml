@@ -35,6 +35,16 @@
            memoryStoreEvictionPolicy="LRU">
         <persistence strategy="localTempSwap"/>
     </cache>
+    <cache name="CACHE_EMPLOYEE_SCHEDULE_MODULE"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           maxElementsOnDisk="10000000"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
 
     <!--
     <diskStore>: 当内存缓存中对象数量超过maxElementsInMemory时,将缓存对象写到磁盘缓存中(需对象实现序列化接口)

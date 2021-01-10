@@ -12,6 +12,7 @@
 package com.dantefung.springbootcache.config;
 
 import com.dantefung.springbootcache.sample.DB;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -28,6 +29,7 @@ import java.util.Set;
  * @date 2021/01/08 20/41
  * @since JDK1.8
  */
+@Slf4j
 @Component
 public class CacheDataInitializer {
 
@@ -39,6 +41,7 @@ public class CacheDataInitializer {
 	@PostConstruct
 	public void init() {
 		// 模拟从数据库获取数据加载至本地缓存
+		log.info("cache data init ,cacheManager: {}...", cacheManager.toString());
 		Cache cache = cacheManager.getCache("users");
 		Set<Map.Entry<String, String>> set = db.entrySet();
 		set.stream().forEach(entry -> cache.put(entry.getKey(), entry.getValue()));

@@ -11,19 +11,22 @@
  */
 package com.dantefung.springbootcache.controller;
 
+import com.dantefung.springbootcache.customize.RedisEhCache;
 import com.dantefung.springbootcache.facade.GenericCacheableFacade;
 import com.dantefung.springbootcache.sample.DB;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.statistics.StatisticsGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.ehcache.EhCacheCache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,13 +46,47 @@ import java.util.List;
 public class CacheTestController {
 
 	@Autowired
-	@Qualifier("ehCacheManager")
+	@Qualifier("ehCacheCacheManager")
 	private CacheManager cacheManager;
+	@Autowired
+	private CacheManager defaultCacheManager;
 
 	@GetMapping("/load")
-	@Cacheable(value = "users")
+	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE")// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
 	public Object load() {
 		return new Date().getSeconds();
+	}
+
+	/**
+	 * 对于一个支持缓存的方法，Spring会在其被调用后将其返回值缓存起来，
+	 * 以保证下次利用同样的参数来执行该方法时可以直接从缓存中获取结果，
+	 * 而不需要再次执行该方法。
+	 * @param key
+	 * @return
+	 */
+	@GetMapping("/loadByKey")
+	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE", key = "#key")// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
+	public Object loadByKey(String key) {
+		log.info("execute loadByKey ... ");
+		return new Date().getSeconds();
+	}
+
+	/**
+	 * 当缓存中的数据发生变更，执行作废操作
+	 * @param key
+	 * @return
+	 */
+	@GetMapping("/editByKey")
+	@CacheEvict(value="CACHE_EMPLOYEE_SCHEDULE_MODULE", key="#key", beforeInvocation=false)
+	public Object editByKey(String key, String value) {
+		log.info("key:{} value:{} 模拟更新了数据库...", key , value);
+		return new Date().getSeconds();
+	}
+
+	@GetMapping("/keys")
+	public Object keys(@RequestParam String cacheName) {
+		RedisEhCache cache = (RedisEhCache) defaultCacheManager.getCache(cacheName);
+		return cache.keys(cacheName);
 	}
 
 	@GetMapping("/program")
@@ -69,9 +106,16 @@ public class CacheTestController {
 		String value = cache.get("zhansan", String.class);
 		log.info("read from cache: {}", value);
 
-
 		EhCacheCacheManager ehCacheCacheManager = (EhCacheCacheManager) cacheManager;
 		System.out.println(ehCacheCacheManager);
+		EhCacheCache ehCache = (EhCacheCache) ehCacheCacheManager.getCache("CACHE_EMPLOYEE_SCHEDULE_MODULE");
+		Ehcache ehCacheNativeCache = ehCache.getNativeCache();
+		StatisticsGateway statistics = ehCacheNativeCache.getStatistics();
+		System.out.println(statistics.getAssociatedCacheName());
+		System.out.println(statistics.getCore());
+		System.out.println(statistics.getExtended());
+		System.out.println(statistics.getLocalDiskSize());
+
 
 		log.info("read from cache: {}", value);
 

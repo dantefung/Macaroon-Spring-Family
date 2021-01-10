@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!-- 自定义属性信息 -->
+    <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} - [%-5level] [%-8thread] %-36logger{36}-[%X{traceId}] : %msg%n"/>
+    <!-- 日志文件优先使用logging.file的值，如果没有则使用logging.path的值，如果还没有则放入临时目录 -->
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}running.log}"/>
+    <property name="LOG_FILE_MAX_SIZE" value="500MB"/>
+    <property name="LOG_FILE_TOTAL_SIZE" value="100GB"/>
+    <property name="LOG_FILE_KEEP_MAX_DAYS" value="30"/>
+    <!-- 控制台日志配置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 日志文件输出格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 文件日志配置 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!-- 日志文件输出格式 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 日志文件存储位置 -->
+        <file>${LOG_FILE}</file>
+        <!-- 日志文件滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 历史日志名称 -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <!-- 单个日志文件的最大大小 -->
+            <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
+            <!-- 历史日志文件最大保留的天数 -->
+            <maxHistory>${LOG_FILE_KEEP_MAX_DAYS}</maxHistory>
+            <!-- 日志文件总的大小, 超出则删除旧的历史文件 -->
+            <totalSizeCap>${LOG_FILE_TOTAL_SIZE}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <!-- rootLogger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+    <!-- Eureka 心跳日志 -->
+    <!--<logger name="com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver" level="WARN"/>-->
+    <!-- spring自动配置 -->
+    <logger name="org.springframework.boot.autoconfigure" level="WARN"/>
+    <logger name="com.dantefung.springbootcache.customize" level="TRACE"/>
+
+    <!-- 多环境日志配置 -->
+    <springProfile name="dev,test,local,portal">
+        <logger name="com.dantefung" level="DEBUG"/>
+    </springProfile>
+    <springProfile name="pred,prod">
+        <logger name="com.dantefung" level="INFO"/>
+    </springProfile>
+</configuration>

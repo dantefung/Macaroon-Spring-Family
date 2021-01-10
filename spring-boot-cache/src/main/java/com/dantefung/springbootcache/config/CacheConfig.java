@@ -1,9 +1,12 @@
 package com.dantefung.springbootcache.config;
 
+import com.dantefung.springbootcache.customize.RedisEhCacheManager;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -15,6 +18,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.*;
 
 import java.time.Duration;
@@ -35,9 +39,9 @@ public class CacheConfig extends CachingConfigurerSupport {
 	private String keyPrefix = "CACHE_DEMO";// key前缀，用于区分不同项目的缓存，建议每个项目单独设置
 
 	//key的生成
-    @Override
-    @Bean
-    public KeyGenerator keyGenerator() {
+	@Override
+	@Bean
+	public KeyGenerator keyGenerator() {
 		return (target, method, params) -> {
 			char sp = ':';
 			StringBuilder strBuilder = new StringBuilder();
@@ -59,22 +63,35 @@ public class CacheConfig extends CachingConfigurerSupport {
 			}
 			return strBuilder.toString();
 		};
-    }
+	}
 
-	@Bean("ehCacheManager")
-	public CacheManager ehCacheManager(RedisConnectionFactory connectionFactory) {
+	@Bean("ehCacheCacheManager")
+	public CacheManager ehCacheCacheManager() {
 		return new EhCacheCacheManager();
 	}
 
+	@Bean("redisCacheManager")
+	public CacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
+		return RedisCacheManager.builder(connectionFactory).cacheDefaults(defaultCacheConfig())
+				.withInitialCacheConfigurations(getCacheConfigurations()).transactionAware().build();
+	}
+
+/*	@Bean
+	@Primary
+	public CacheManager redisEhCacheManager(
+			@Qualifier("ehCacheCacheManager") @Autowired CacheManager ehCacheCacheManager,
+			@Qualifier("redisCacheManager") @Autowired CacheManager redisCacheManager) {
+		return new RedisEhCacheManager((EhCacheCacheManager) ehCacheCacheManager,
+				(RedisCacheManager) redisCacheManager);
+	}*/
+
 	@Bean
 	@Primary
-	public CacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
-		return RedisCacheManager
-				.builder(connectionFactory)
-				.cacheDefaults(defaultCacheConfig())
-				.withInitialCacheConfigurations(getCacheConfigurations())
-				.transactionAware()
-				.build();
+	public CacheManager redisEhCacheManager(
+			@Qualifier("ehCacheCacheManager") @Autowired CacheManager ehCacheCacheManager,
+			@Qualifier("redisCacheManager") @Autowired CacheManager redisCacheManager, RedisTemplate redisTemplate) {
+		return new RedisEhCacheManager((EhCacheCacheManager) ehCacheCacheManager,
+				(RedisCacheManager) redisCacheManager, redisTemplate);
 	}
 
 	private RedisCacheConfiguration defaultCacheConfig() {
@@ -84,10 +101,10 @@ public class CacheConfig extends CachingConfigurerSupport {
 		 * key序列化
 		 * value序列化
 		 * */
-		return RedisCacheConfiguration.defaultCacheConfig()
-						.entryTtl(Duration.ofSeconds(30))
-						.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-						.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+		return RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(30)).serializeKeysWith(
+				RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+				.serializeValuesWith(RedisSerializationContext.SerializationPair
+						.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
 	}
 
@@ -98,11 +115,11 @@ public class CacheConfig extends CachingConfigurerSupport {
 		 * key序列化
 		 * value序列化
 		 * */
-		return RedisCacheConfiguration.defaultCacheConfig()
-				.entryTtl(ttl)
-				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+		return RedisCacheConfiguration.defaultCacheConfig().entryTtl(ttl).serializeKeysWith(
+				RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 				// .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-		.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
+				.serializeValuesWith(
+						RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
 
 	}
 
