@@ -11,6 +11,7 @@
  */
 package com.dantefung.springbootcache.controller;
 
+import com.dantefung.springbootcache.config.CaffeineConfig;
 import com.dantefung.springbootcache.customize.RedisEhCache;
 import com.dantefung.springbootcache.facade.GenericCacheableFacade;
 import com.dantefung.springbootcache.sample.DB;
@@ -26,12 +27,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.ehcache.EhCacheCache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @Title: CacheTestController
@@ -49,10 +47,14 @@ public class CacheTestController {
 	@Qualifier("ehCacheCacheManager")
 	private CacheManager cacheManager;
 	@Autowired
+	@Qualifier("caffeineCacheManager")
+	private CacheManager caffeineCacheManager;
+	@Autowired
 	private CacheManager defaultCacheManager;
 
 	@GetMapping("/load")
-	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE")// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
+	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE")
+	// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
 	public Object load() {
 		return new Date().getSeconds();
 	}
@@ -65,7 +67,8 @@ public class CacheTestController {
 	 * @return
 	 */
 	@GetMapping("/loadByKey")
-	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE", key = "#key")// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
+	@Cacheable(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE", key = "#key")
+	// CACHE_EMPLOYEE_SCHEDULE_MODULE::CACHE_DEMO:CacheTestController:load:0
 	public Object loadByKey(String key) {
 		log.info("execute loadByKey ... ");
 		return new Date().getSeconds();
@@ -77,9 +80,9 @@ public class CacheTestController {
 	 * @return
 	 */
 	@GetMapping("/editByKey")
-	@CacheEvict(value="CACHE_EMPLOYEE_SCHEDULE_MODULE", key="#key", beforeInvocation=false)
+	@CacheEvict(value = "CACHE_EMPLOYEE_SCHEDULE_MODULE", key = "#key", beforeInvocation = false)
 	public Object editByKey(String key, String value) {
-		log.info("key:{} value:{} 模拟更新了数据库...", key , value);
+		log.info("key:{} value:{} 模拟更新了数据库...", key, value);
 		return new Date().getSeconds();
 	}
 
@@ -120,6 +123,26 @@ public class CacheTestController {
 		log.info("read from cache: {}", value);
 
 		return "ok!";
+	}
+
+	@GetMapping("/getUserById")
+	@Cacheable(value ="getUserById", key = "#id", cacheManager = "caffeineCacheManager")
+	public Object getUserById(String id) {
+		log.info("execute getUserById ... ");
+		return new Date().getSeconds();
+	}
+
+	@GetMapping("/caffeine")
+	public Object caffeine() {
+		Cache cache = caffeineCacheManager.getCache(CaffeineConfig.Caches.getUserById.name());
+		com.github.benmanes.caffeine.cache.Cache caffeine = (com.github.benmanes.caffeine.cache.Cache) cache
+				.getNativeCache();
+		ConcurrentMap map = caffeine.asMap();
+		Set<Map.Entry> entrySet = map.entrySet();
+		entrySet.stream().forEach(entry -> {
+			System.out.println(">>>>>>> caffeine: " + entry.getKey() + "===" + entry.getValue());
+		});
+		return map;
 	}
 
 	/*
@@ -231,6 +254,7 @@ public class CacheTestController {
 
 
 	/////////////////////////////Cache Aside Pattern////////////////////////////////
+
 	/**
 	 * @Description: 通过key查询value
 	 * @param key: 健值

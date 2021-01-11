@@ -30,15 +30,27 @@ public class GenericCacheableFacade {
 		Cache cache = cacheManager.getCache("users");
 		T t = (T) cache.get(key, clazz);
 		log.info("尝试读取缓存:{} ...", t);
-		if (Objects.isNull(t)) {
-			// 则读取数据库，写入缓存中
-			log.info("查无缓存数据，从数据库读取...");
-			// 模拟读取数据库
-			Object value = db.get(key);
+		if (Objects.nonNull(t)) {
+			return t;
+		}
+		// 则读取数据库，写入缓存中
+		log.info("查无缓存数据，从数据库读取...");
+		// 模拟读取数据库
+		Object value = db.get(key);
+		// 基础写法: 防止缓存空值(缓存太多空值没意义..)
+		if (Objects.nonNull(value)) {
 			// 更新回缓存
 			cache.put(key, value);
 			t = (T) value;
 		}
+//		// 升级版写法. 有短暂的数据不一致问题.
+//		cache.put(key, value);
+//		if (Objects.isNull(value)) {
+//			// 更新回缓存
+//			cache.put(key, new Object());
+//			// TODO: 针对空数据设置过期时间
+//			t = (T) value;
+//		}
 		return t;
 	}
 
