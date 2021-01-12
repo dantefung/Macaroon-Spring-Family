@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentMap;
  * @since JDK1.8
  */
 @Slf4j
-@RestController
+@RestController("cacheTestController")
 @RequestMapping("/test/cache")
 public class CacheTestController {
 
