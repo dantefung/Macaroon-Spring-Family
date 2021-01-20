@@ -95,48 +95,47 @@
                 </executions>
             </plugin>
 
-            <!-- 方式一 -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <imageName>mavendemo</imageName>
-                    <baseImage>java</baseImage>
-                    <maintainer>docker_maven docker_maven@email.com</maintainer>
-                    <workdir>/ROOT</workdir>
-                    <cmd>["java", "-version"]</cmd>
-                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
-                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
-                    <resources>
-                        <resource>
-                            <targetPath>/ROOT</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-
-            <!-- 方式二 -->
+            <!-- 将target下的jar包拷贝到src/main/docker目录下-->
+            <!-- 使用IDEA的Docker插件需要开启此注释-->
            <!-- <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="src/main/docker" file="target/${project.artifactId}-${project.version}.${project.packaging}"></copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+<!--            <plugin>
                 <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.10</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <imageName>mavendemo</imageName>
-                    <dockerDirectory>${basedir}/docker</dockerDirectory> &lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;
-                    &lt;!&ndash; 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 &ndash;&gt;
-                   &lt;!&ndash; <dockerHost>http://192.168.xxx.10:2375</dockerHost>&ndash;&gt;
-                    <resources>
-                        <resource>
-                            <targetPath>/ROOT</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
+                    <repository>spotify/foobar</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
                 </configuration>
             </plugin>-->
+
         </plugins>
     </build>
 

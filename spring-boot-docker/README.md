@@ -60,73 +60,96 @@ Invoke-WebRequest http://localhost:8085 -Method Get
 
 
 ## 2、MAVEN插件
-### docker-maven-plugin 介绍
-> 在我们持续集成过程中，项目工程一般使用 Maven 编译打包，然后生成镜像，通过镜像上线，能够大大提供上线效率，同时能够快速动态扩容，快速回滚，着实很方便。docker-maven-plugin 插件就是为了帮助我们在Maven工程中，通过简单的配置，自动生成镜像并推送到仓库中。
+### 插件选型
+![](./doc/img/20210120152628.png)
 
-### 两种方式
-1. 第一种是将构建信息指定到 POM 中。
-2. 使用已存在的 Dockerfile 构建。
+![](./doc/img/20210120153412.png)
 
-方式一:
-``` 
-<build>
-    <plugins>
-        <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>1.0.0</version>
-            <configuration>
-                <imageName>mavendemo</imageName>
-                <baseImage>java</baseImage>
-                <maintainer>docker_maven docker_maven@email.com</maintainer>
-                <workdir>/ROOT</workdir>
-                <cmd>["java", "-version"]</cmd>
-                <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
-                <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
-                <resources>
-                    <resource>
-                        <targetPath>/ROOT</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.jar</include>
-                    </resource>
-                </resources>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-```
-方式二:
-``` 
-<build>
-    <plugins>
-         <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>1.0.0</version>
-            <configuration>
-                <imageName>mavendemo</imageName>
-                <dockerDirectory>${basedir}/docker</dockerDirectory> <!-- 指定 Dockerfile 路径-->
-                <!-- 这里是复制 jar 包到 docker 容器指定目录配置，也可以写到 Docokerfile 中 -->
-                <resources>
-                    <resource>
-                        <targetPath>/ROOT</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.jar</include>
-                    </resource>
-                </resources>
-            </configuration>
-        </plugin>   
-    </plugins>
-</build>
-```
+> NOTE: 
+>
+>Dockerfile Maven
+>
+>Build Status Maven Central License
+>
+>Status: mature (成熟的)
+>
+>At this point, we're not developing or accepting new features or even fixing non-critical bugs.
+>
+>This Maven plugin integrates Maven with Docker.
 
-**制作镜像**
-``` 
-mvn clean package docker:build
-```
+TODO: 待完善...
 
 
 ## 3、IDEA插件
+开启docker服务端:
+
+![](./doc/img/20210120143155.png)
+
+IDEA客户端:
+
+![](./doc/img/640.png)
+
+### 连接远程docker:
+
+1. 编辑配置
+
+![](./doc/img/640_1.png)
+
+2. 填写远程地址
+
+![](./doc/img/640_2.png)
+
+3. 连接成功，会列出远程 docker 容器和镜像
+
+![](./doc/img/640_3.png) 
+
+### 配置POM
+```
+            <!-- 将target下的jar包拷贝到src/main/docker目录下-->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="src/main/docker" file="target/${project.artifactId}-${project.version}.${project.packaging}"></copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+```
+### Run/Debug Configuration 配置dockerfile
+
+![](./doc/img/20210120150758.png)
+
+### 打包并制作镜像
+
+执行打包命令
+
+``` 
+mvn package -Dmaven.test.skip=true
+```
+或
+
+![](./doc/img/20210120150340.png)
+
+
+点击构建镜像按钮
+
+![](./doc/img/20210120151226.png)
+
+可见已经构建镜像成功并运行
+
+![](./doc/img/20210120151138.png)
+
+![](./doc/img/20210120151124.png)
+
+## 4、Jenkins
 
 
 # 延伸阅读
@@ -134,6 +157,9 @@ mvn clean package docker:build
 > 注: 课件B站评论区的同鞋有提供，本工程已经下载至doc/docker目录下.
 - 《Docker实战》
 - [Spring Boot with Docker](https://spring.io/guides/gs/spring-boot-docker/)
+- [Docker遇到IDEA](https://mp.weixin.qq.com/s/Xb3DptyTGH-pbiR01W47sw)
+- [docker-maven-plugin](https://github.com/spotify/docker-maven-plugin)
+- [Dockerfile Maven](https://github.com/spotify/dockerfile-maven)
 
 # 补充说明
 ``` 
@@ -141,6 +167,7 @@ mvn clean package docker:build
 java -Djava.security.egd=file:/dev/./urandom -jar /aap.jar
 ```
 **关于执行命令的说法**
+目的: 为了缩短 Tomcat 的启动时间，添加java.security.egd的系统属性指向/dev/urandom作为 ENTRYPOINT。
 
 dev/random的一个副本是/dev/urandom（”unlocked”，非阻塞的随机数发生器），它会重复使用熵池中的数据以产生伪随机数据。这表示对/dev/urandom的读取操作不会产生阻塞，但其输出的熵可能小于/dev/random的。它可以作为生成较低强度密码的伪随机数生成器，不建议用于生成高强度长期密码。
 

@@ -34,6 +34,8 @@
         <module>spring-boot-retry</module>
         <module>spring-boot-freemarker</module>
         <module>spring-boot-knife4j</module>
+        <module>spring-boot-assembly</module>
+        <module>spring-boot-docker</module>
     </modules>
 
     <properties>

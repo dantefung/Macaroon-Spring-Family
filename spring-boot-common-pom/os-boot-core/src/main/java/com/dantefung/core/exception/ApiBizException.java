@@ -4,7 +4,6 @@ package com.dantefung.core.exception;
 /**
  * api接口异常
  * 
- * @author HuangSiwei
  * @date 2019年7月30日 下午5:44:43
  * @version 1.0
  */
