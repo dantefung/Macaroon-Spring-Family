@@ -114,28 +114,49 @@
                 </executions>
             </plugin>-->
 
-<!--            <plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.basedir}/" file="src/main/docker/Dockerfile"></copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--https://maven.aliyun.com/mvn/search-->
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.10</version>
+                <version>1.4.13</version>
                 <executions>
                     <execution>
                         <id>default</id>
                         <goals>
                             <goal>build</goal>
-                            <goal>push</goal>
+                            <!--<goal>push</goal>-->
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
+                    <dockerInfoDirectory>src/main/docker</dockerInfoDirectory>
+                    <dockerConfigFile>src/main/docker</dockerConfigFile>
                     <repository>spotify/foobar</repository>
+                    <!--<username></username>
+                    <password></password>-->
                     <tag>${project.version}</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                 </configuration>
-            </plugin>-->
-
+            </plugin>
         </plugins>
     </build>
 
