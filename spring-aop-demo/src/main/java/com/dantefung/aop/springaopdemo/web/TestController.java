@@ -7,6 +7,7 @@ import com.dantefung.aop.springaopdemo.core.result.R;
 import com.dantefung.aop.springaopdemo.security.SecurityUser;
 import com.dantefung.aop.springaopdemo.service.SysLogTestService;
 import com.dantefung.aop.springaopdemo.utils.SpringContextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,10 +18,13 @@ import javax.servlet.http.HttpSession;
  * Spring el 文档地址：https://docs.spring.io/spring/docs/4.3.16.RELEASE/spring-framework-reference/htmlsingle/#expressions-operators-logical
  * </p>
  *
- * @author L.cm
+ * @author DANTE FUNG
  */
 @RestController
 public class TestController {
+
+	@Autowired
+	private SysLogTestService sysLogTestService;
 
 	/**
 	 * 模拟登录
@@ -91,6 +95,22 @@ public class TestController {
 	public Object doBiz() {
 		SysLogTestService sysLogTestService = SpringContextUtils.getApplicationContext().getBean(SysLogTestService.class);
 		sysLogTestService.saveRenewalLog("测试公司2");
+		return "test!";
+	}
+
+	/**
+	 * 演示service层使用@SysLog注解的自调用问题
+	 *
+	 * 访问: http://localhost:8080/doSlefCall?msg=blablabla
+	 *
+	 * 控制台期望输出:
+	 *
+	 * @param msg
+	 * @return
+	 */
+	@GetMapping("doSlefCall")
+	public Object doSlefCall(String msg) {
+		sysLogTestService.doBiz(msg);
 		return "test!";
 	}
 
