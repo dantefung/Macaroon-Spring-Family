@@ -69,6 +69,12 @@
             <artifactId>lucene-analyzers-smartcn</artifactId>
             <version>7.6.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.janeluo/ikanalyzer -->
+        <dependency>
+            <groupId>com.janeluo</groupId>
+            <artifactId>ikanalyzer</artifactId>
+            <version>2012_u6</version>
+        </dependency>
         <!-- mysql依赖 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -78,6 +84,10 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
 
