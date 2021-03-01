@@ -1,0 +1,10 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-boot-transction
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/db_test
+    username: root
+    password: root
