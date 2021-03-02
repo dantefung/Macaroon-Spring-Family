@@ -1,4 +1,3 @@
-## 注意: 这份文件是用来结合Dockerfile-maven-plugin使用的.
 # Docker image for springboot file run
 # VERSION 0.0.1
 # Author: DANTE FUNG
