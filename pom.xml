@@ -37,6 +37,7 @@
         <module>spring-boot-assembly</module>
         <module>spring-boot-docker</module>
         <module>spring-boot-lucene</module>
+        <module>spring-boot-transaction</module>
     </modules>
 
     <properties>
