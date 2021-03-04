@@ -38,6 +38,7 @@
         <module>spring-boot-docker</module>
         <module>spring-boot-lucene</module>
         <module>spring-boot-transaction</module>
+        <module>spring-boot-cluster-quartz</module>
     </modules>
 
     <properties>
