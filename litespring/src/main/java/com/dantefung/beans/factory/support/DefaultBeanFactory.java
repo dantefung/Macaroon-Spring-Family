@@ -8,9 +8,16 @@ import com.dantefung.util.ClassUtils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
-public class DefaultBeanFactory extends DefaultSingletonBeanRegistry 
-	implements ConfigurableBeanFactory,BeanDefinitionRegistry{
+/**
+ * @Description:
+ *    BeanDefinitionRegistry 接口给DefaultBeanFactory提供了注册bean定义的能力
+ * @Author: DANTE FUNG
+ * @Date: 2021/3/3 14:10
+ * @since JDK 1.8
+ * @return:
+ */
+public class DefaultBeanFactory extends DefaultSingletonBeanRegistry
+		implements ConfigurableBeanFactory, BeanDefinitionRegistry {
 
 
 	/**
@@ -18,50 +25,53 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry
 	 */
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
 	private ClassLoader beanClassLoader;
-	
+
 	public DefaultBeanFactory() {
-		
+
 	}
 
-	public void registerBeanDefinition(String beanID,BeanDefinition bd){
+	public void registerBeanDefinition(String beanID, BeanDefinition bd) {
 		this.beanDefinitionMap.put(beanID, bd);
 	}
+
 	public BeanDefinition getBeanDefinition(String beanID) {
-			
+
 		return this.beanDefinitionMap.get(beanID);
 	}
 
 	public Object getBean(String beanID) {
 		BeanDefinition bd = this.getBeanDefinition(beanID);
-		if(bd == null){
+		if (bd == null) {
 			return null;
 		}
-		
-		if(bd.isSingleton()){
+
+		if (bd.isSingleton()) {
 			Object bean = this.getSingleton(beanID);
-			if(bean == null){
+			if (bean == null) {
 				bean = createBean(bd);
 				this.registerSingleton(beanID, bean);
 			}
 			return bean;
-		} 
+		}
 		return createBean(bd);
 	}
+
 	private Object createBean(BeanDefinition bd) {
 		ClassLoader cl = this.getBeanClassLoader();
 		String beanClassName = bd.getBeanClassName();
 		try {
 			Class<?> clz = cl.loadClass(beanClassName);
 			return clz.newInstance();
-		} catch (Exception e) {			
-			throw new BeanCreationException("create bean for "+ beanClassName +" failed",e);
-		}	
-	}
-	public void setBeanClassLoader(ClassLoader beanClassLoader) {
-		this.beanClassLoader = beanClassLoader;
+		} catch (Exception e) {
+			throw new BeanCreationException("create bean for " + beanClassName + " failed", e);
+		}
 	}
 
-    public ClassLoader getBeanClassLoader() {
+	public ClassLoader getBeanClassLoader() {
 		return (this.beanClassLoader != null ? this.beanClassLoader : ClassUtils.getDefaultClassLoader());
+	}
+
+	public void setBeanClassLoader(ClassLoader beanClassLoader) {
+		this.beanClassLoader = beanClassLoader;
 	}
 }

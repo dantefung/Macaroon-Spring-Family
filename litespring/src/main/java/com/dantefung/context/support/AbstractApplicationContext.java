@@ -18,7 +18,7 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
 		reader.loadBeanDefinitions(resource);
 		factory.setBeanClassLoader(this.getBeanClassLoader());
 	}
-	
+
 	public Object getBean(String beanID) {
 		
 		return factory.getBean(beanID);

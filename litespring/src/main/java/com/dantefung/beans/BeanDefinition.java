@@ -43,4 +43,16 @@ public interface BeanDefinition {
 	void setScope(String scope);
 
 	String getBeanClassName();
+
+	Object getBean();
+
+	void setBean(Object bean);
+
+	Class getBeanClass();
+
+	void setBeanClass(Class beanClass);
+
+	PropertyValues getPropertyValues();
+
+	void setPropertyValues(PropertyValues propertyValues);
 }

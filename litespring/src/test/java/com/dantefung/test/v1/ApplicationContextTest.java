@@ -9,7 +9,7 @@ import org.junit.Test;
 public class ApplicationContextTest {
 
 	@Test
-	public void testGetBean() {
+	public void testGetBean() throws Exception {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("petstore-v1.xml");
 		PetStoreService petStore = (PetStoreService)ctx.getBean("petStore");
 		System.out.println(petStore);
@@ -24,4 +24,20 @@ public class ApplicationContextTest {
 		
 	}
 
+	@Test
+	public void test() throws Exception {
+		ApplicationContext applicationContext = new com.dantefung.context.support02.ClassPathXmlApplicationContext("petstore-v1.xml");
+		PetStoreService petStore = (PetStoreService) applicationContext.getBean("petStore");
+		System.out.println(petStore);
+		Assert.assertNotNull(petStore);
+	}
+
+
+	@Test
+	public void testPostProcessor() throws Exception {
+		ApplicationContext applicationContext = new com.dantefung.context.support02.ClassPathXmlApplicationContext("petstore-postprocessor.xml");
+		PetStoreService petStore = (PetStoreService) applicationContext.getBean("petStore");
+		System.out.println(petStore);
+		Assert.assertNotNull(petStore);
+	}
 }
