@@ -1,7 +1,12 @@
 package com.dantefung.test.v1;
 
+import com.dantefung.aware.GoodService;
+import com.dantefung.aware.OrderService;
+import com.dantefung.aware.UserService;
 import com.dantefung.context.ApplicationContext;
 import com.dantefung.context.support.ClassPathXmlApplicationContext;
+import com.dantefung.initializing.ApplyService;
+import com.dantefung.postprocessor.BeanInitializeLogger;
 import com.dantefung.service.v1.PetStoreService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,8 +41,30 @@ public class ApplicationContextTest {
 	@Test
 	public void testPostProcessor() throws Exception {
 		ApplicationContext applicationContext = new com.dantefung.context.support02.ClassPathXmlApplicationContext("petstore-postprocessor.xml");
-		PetStoreService petStore = (PetStoreService) applicationContext.getBean("petStore");
-		System.out.println(petStore);
-		Assert.assertNotNull(petStore);
+		BeanInitializeLogger beanInitializeLogger = (BeanInitializeLogger) applicationContext.getBean("beanInitializeLogger");
+		System.out.println(beanInitializeLogger);
+		Assert.assertNotNull(beanInitializeLogger);
+	}
+
+	@Test
+	public void testAware() throws Exception {
+		ApplicationContext applicationContext = new com.dantefung.context.support02.ClassPathXmlApplicationContext("petstore-aware.xml");
+		UserService userService = (UserService) applicationContext.getBean("userService");
+		System.out.println(userService);
+		Assert.assertNotNull(userService);
+		GoodService goodService = (GoodService) applicationContext.getBean("goodService");
+		System.out.println(goodService);
+		Assert.assertNotNull(goodService);
+		OrderService orderService = (OrderService) applicationContext.getBean("orderService");
+		System.out.println(orderService);
+		Assert.assertNotNull(orderService);
+	}
+
+	@Test
+	public void testInitializingBeanAndInitMethod() throws Exception {
+		ApplicationContext applicationContext = new com.dantefung.context.support02.ClassPathXmlApplicationContext("petstore-initializing.xml");
+		ApplyService applyService = (ApplyService) applicationContext.getBean("applyService");
+		System.out.println(applyService);
+		Assert.assertNotNull(applyService);
 	}
 }

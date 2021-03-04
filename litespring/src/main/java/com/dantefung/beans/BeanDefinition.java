@@ -55,4 +55,16 @@ public interface BeanDefinition {
 	PropertyValues getPropertyValues();
 
 	void setPropertyValues(PropertyValues propertyValues);
+
+	/**
+	 * Set the name of the initializer method.
+	 * @since 5.1
+	 */
+	void setInitMethodName(String initMethodName);
+
+	/**
+	 * Return the name of the initializer method.
+	 * @since 5.1
+	 */
+	String getInitMethodName();
 }
