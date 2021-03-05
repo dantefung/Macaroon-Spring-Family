@@ -1,4 +1,4 @@
-package com.dantefung.postprocessor;
+package com.dantefung.sample.postprocessor;
 
 import com.dantefung.beans.BeansException;
 import com.dantefung.beans.factory.config.BeanPostProcessor;

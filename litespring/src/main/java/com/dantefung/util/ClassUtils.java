@@ -1,8 +1,6 @@
 package com.dantefung.util;
 
 
-import com.sun.istack.internal.Nullable;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -43,7 +41,7 @@ public abstract class ClassUtils {
 		return cl;
 	}
 
-	public static Method getMethodIfAvailable(Class<?> clazz, String methodName, @Nullable Class<?>... paramTypes) {
+	public static Method getMethodIfAvailable(Class<?> clazz, String methodName, Class<?>... paramTypes) {
 		Assert.notNull(clazz, "Class must not be null");
 		Assert.notNull(methodName, "Method name must not be null");
 		if (paramTypes != null) {

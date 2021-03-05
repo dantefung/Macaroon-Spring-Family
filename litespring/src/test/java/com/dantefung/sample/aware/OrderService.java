@@ -9,7 +9,7 @@
  * 作者姓名           修改时间           版本号              描述
  * DANTE FUNG        2021/3/4 10:15 下午   V1.0.0
  */
-package com.dantefung.aware;
+package com.dantefung.sample.aware;
 
 import com.dantefung.beans.factory.BeanClassLoaderAware;
 import lombok.extern.slf4j.Slf4j;

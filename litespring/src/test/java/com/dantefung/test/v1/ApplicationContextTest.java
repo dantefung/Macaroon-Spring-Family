@@ -1,15 +1,15 @@
 package com.dantefung.test.v1;
 
-import com.dantefung.aware.GoodService;
-import com.dantefung.aware.OrderService;
-import com.dantefung.aware.UserService;
+import com.dantefung.sample.aware.GoodService;
+import com.dantefung.sample.aware.OrderService;
+import com.dantefung.sample.aware.UserService;
 import com.dantefung.context.ApplicationContext;
 import com.dantefung.context.support.ClassPathXmlApplicationContext;
-import com.dantefung.initializing.ApplyService;
-import com.dantefung.postprocessor.BeanInitializeLogger;
 import com.dantefung.service.v1.PetStoreService;
 import org.junit.Assert;
 import org.junit.Test;
+import com.dantefung.sample.postprocessor.BeanInitializeLogger;
+import com.dantefung.sample.initializing.ApplyService;
 
 public class ApplicationContextTest {
 
