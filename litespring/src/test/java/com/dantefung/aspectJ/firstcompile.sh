@@ -1,0 +1,1 @@
+ javac -cp ~/.m2/repository/org/aspectj/aspectjrt/1.9.5/aspectjrt-1.9.5.jar -d  ../../../../../../target/classes ./*.java
