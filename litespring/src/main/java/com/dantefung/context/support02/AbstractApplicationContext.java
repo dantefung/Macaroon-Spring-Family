@@ -89,6 +89,8 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
 	protected void finishBeanFactoryInitialization() throws Exception {
 		// ...
 
+		// TODO: Spring LTW 相关, LoadTimeWeaverAware
+
 		// Instantiate all remaining (non-lazy-init) singletons.
 		beanFactory.preInstantiateSingletons();
 	}

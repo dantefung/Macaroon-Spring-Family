@@ -169,10 +169,39 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 	}
 
 	public void preInstantiateSingletons() throws Exception {
+
+		List<String> beanNames = new ArrayList<String>(this.beanDefinitionNames);
+
 		for (Iterator it = this.beanDefinitionNames.iterator(); it.hasNext(); ) {
 			String beanName = (String) it.next();
+			// 只会对非延迟单例bean进行初始化
+			// 1. 是FactoryBan
 			// TODO: FacotryBean的实现
+			// 2. 普通Bean
 			getBean(beanName);
+		}
+
+		// 这里是针对Spring提供的SmartInitializingSingleton接口的处理.提供一个在所有Bean都创建后才调用的初始化方法
+		// 参见: 《Spring Boot 小组件 - SmartInitializingSingleton.md》
+		// Trigger post-initialization callback for all applicable beans...
+		for (String beanName : beanNames) {
+//			Object singletonInstance = getSingleton(beanName);
+			Object singletonInstance = null;
+			if (singletonInstance instanceof SmartInitializingSingleton) {
+				final SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;
+				if (System.getSecurityManager() != null) {
+//					AccessController.doPrivileged(new PrivilegedAction<Object>() {
+//						@Override
+//						public Object run() {
+//							smartSingleton.afterSingletonsInstantiated();
+//							return null;
+//						}
+//					}, getAccessControlContext());
+				}
+				else {
+					smartSingleton.afterSingletonsInstantiated();
+				}
+			}
 		}
 	}
 

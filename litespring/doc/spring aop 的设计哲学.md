@@ -59,7 +59,7 @@ AOP把软件系统分为两个部分：核心关注点和横切关注点。业�
 
 ### AOP联盟标准
 
-![](./asset/img/20180502102836760.png)
+![](spring aop 的设计哲学.assets/20180502102836760.png)
 
 AOP联盟将AOP体系分为三层，从三层结构可以看出，AOP实现方式有很多种，包括反射、元数据处理、程序处理、拦截器处理等。
 
@@ -68,11 +68,11 @@ AOP联盟将AOP体系分为三层，从三层结构可以看出，AOP实现方�
 
  Aop Alliance项目是许多对Aop和java有浓厚兴趣的软件开发人员联合成立的开源项目，其提供的源码都是完全免费的(Public Domain).[官方网站](http://aopalliance.sourceforge.net/)。
 
- ![](./asset/img/20210305143839.png)
+ ![](spring aop 的设计哲学.assets/20210305143839.png)
 
- ![](./asset/img/Package_aop.png)
+ ![](spring aop 的设计哲学.assets/Package_aop.png)
 
- ![](./asset/img/Package_intercept.png)
+ ![](spring aop 的设计哲学.assets/Package_intercept.png)
 
 
 | 类名 | 描述 |
@@ -88,7 +88,7 @@ AOP联盟将AOP体系分为三层，从三层结构可以看出，AOP实现方�
  [AspectJ官方地址](https://www.eclipse.org/aspectj/)
  AspectJ实际上是对AOP编程思想的一个实践，当然，除了AspectJ以外，还有很多其它的AOP实现，例如ASMDex，但目前最好、最方便的，依然是AspectJ。
 
- ##### why?
+ #### why?
 
  在AspectJ之前，我们已知:
  - 静态代理
@@ -295,12 +295,109 @@ AspectJ提供了两套机制：
    不使用ajc编译器，利用aspectjweaver.jar工具，使用java agent代理在类加载期将切面织入进代码。 AspectJ LTW 是基于 JDK 动态代理技术实现的，所以它的作用范围是整个 JVM ，因此这种方式较为粗放，对于单一 JVM 多个应用的场景并不适用 。
 
 #### How?
-参见文档: [关于AspectJ你可能不知道的那些事](https://blog.csdn.net/d_o_n_g2/article/details/85046536?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=1328602.14416.16149500828197117&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)
+参见文档:
 
-// TODO: spring是织入还是代理?
+- [关于AspectJ你可能不知道的那些事](https://blog.csdn.net/d_o_n_g2/article/details/85046536?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=1328602.14416.16149500828197117&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)
+
+- [Intro to AspectJ](https://www.baeldung.com/aspectj)
+
+#### 小结
+
+1、介绍了AOP的 诞生的渊源、诞生该思想的契机。
+
+2、介绍了为了标准化AOP，有专门的AOP联盟提供一套标准的API。
+
+3、AOP联盟标准底层编织技术选择：JDK动态代理、CGLIB代理、AspectJ
+
+
+
+----
+
+## Spring AOP 与 AspectJ的关系
+
+
+
+我们现在主流的做法是将spring aop和aspectj结合使用，spring借鉴了AspectJ的切面，以提供注解驱动的AOP。
+
+
+|                | 目标及功能                                                   |
+| -------------- | ------------------------------------------------------------ |
+| **AspectJ**    | **AspectJ is the original AOP technology which aims to provide complete AOP solution.** |
+| **Spring AOP** | **It is not intended as a complete AOP solution** – it can only be applied to beans that are managed by a Spring container. |
+
+AspectJ旨在提供一套完整的AOP解决方案。
+
+Spring AOP 并不是完整的AOP解决方案。它旨在通过IOC容器提供一个简单的AOP实现，用于解决大部分程序员所面临常见的问题。
+
+// TODO: 这里可以展开讲讲程序员所常见的问题，为何可以使用IOC提供一个简单的AOP实现。
+
+----
+
+![image-20210308144212467](spring aop 的设计哲学.assets/image-20210308144212467.png)
+
+为何只提供*方法的切面*？由于Spring是基于代理模式，在运行时织入切面逻辑，Java的语言特性的限制：
+
+> But it comes with a limitation. **We cannot apply cross-cutting concerns (or aspects) across classes that are “final” because they cannot be overridden and thus it would result in a runtime exception.**
+>
+> The same applies for static and final methods. Spring aspects cannot be applied to them because they cannot be overridden. Hence Spring AOP because of these limitations, only supports method execution join points.
+
+值得注意的一点:  `自调用问题`。
+
+> It's also worth noting that in Spring AOP, aspects aren't applied to the method called within the same class.
+>
+> 同样值得注意的是，在Spring AOP中，方面并不应用于同一个类中调用的方法。
+>
+> That's obviously because when we call a method within the same class, then we aren't calling the method of the proxy that Spring AOP supplies. If we need this functionality, then we do have to define a separate method in different beans, or use AspectJ.
+>
+> 这显然是因为当我们调用同一个类中的方法时，我们并没有调用Spring AOP提供的代理的方法。如果我们需要这个功能，那么我们必须在不同的bean中定义一个单独的方法，或者使用AspectJ。
+
+网上有很多分析`自调用`的文章，不过你真正理解Spring AOP的代理机制就不会犯这种糊涂了。
+
+
+
+> This quick table summarizes the key differences between Spring AOP and AspectJ:
+
+| **Spring AOP**                                               | **AspectJ**                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Implemented in pure Java                                     | Implemented using extensions of Java programming language    |
+| No need for separate compilation process                     | Needs AspectJ compiler (ajc) unless LTW is set up            |
+| Only runtime weaving is available                            | Runtime weaving is not available. Supports compile-time, post-compile, and load-time Weaving |
+| Less Powerful – only supports method level weaving           | More Powerful – can weave fields, methods, constructors, static initializers, final class/methods, etc… |
+| Can only be implemented on beans managed by Spring container | Can be implemented on all domain objects                     |
+| Supports only method execution pointcuts                     | Support all pointcuts                                        |
+| Proxies are created of targeted objects, and aspects are applied on these proxies | Aspects are weaved directly into code before application is executed (before runtime) |
+| Much slower than AspectJ                                     | Better Performance                                           |
+| Easy to learn and apply                                      | Comparatively more complicated than Spring AOP               |
+
+
+
+## Spring AOP 的代理机制
+
+> Spring Aop makes use of runtime weaving.
+
+[Comparing Spring AOP and AspectJ](https://www.baeldung.com/spring-aop-vs-aspectj)一文中提到Spring的Aop是在运行时织入的。
+
+> With runtime weaving, the aspects are woven during the execution of the application using proxies of the targeted object – using either JDK dynamic proxy or CGLIB proxy (which are discussed in next point):
+
+这里提到Spring Aop是在运行时期通过JDK的动态代理或者CGLIB代理实现对目标对象的代理并将切面逻辑的织入。
+
+![image-20210308135707989](spring aop 的设计哲学.assets\image-20210308135929630.png)
+
+> ### **3.3. Internal Structure and Application**
+>
+> Spring AOP is a proxy-based AOP framework. This means that to implement aspects to the target objects, it'll create proxies of that object. This is achieved using either of two ways:
+>
+> 1. JDK dynamic proxy – the preferred way for Spring AOP. Whenever the targeted object implements even one interface, then JDK dynamic proxy will be used
+> 2. CGLIB proxy – if the target object doesn't implement an interface, then CGLIB proxy can be used
+
+
+
+
 
 
 ## 2、术语
+
+![](spring aop 的设计哲学.assets/20210307140101.png)
 
 ### 切面(Aspect)
 
@@ -310,7 +407,11 @@ AspectJ提供了两套机制：
 
 指方法，在Spring AOP中，一个连接点 总是 代表一个方法的执行。
 
+A joinpoint is a candidate point in the Program Execution of the application where an aspect can be plugged in. This point could be a method being called, an exception being thrown, or even a field being modified. These are the points where your aspect’s code can be inserted into the normal flow of your application to add new behavior.
+
 ### 通知（Advice）
+
+增强的逻辑。
 
 在切面的某个特定的连接点（Join point）上执行的动作。通知有各种类型，其中包括“around”、“before”和“after”等通知。许多AOP框架，包括Spring，都是以拦截器做通知模型， 并维护一个以连接点为中心的拦截器链。
 
@@ -343,15 +444,23 @@ AspectJ提供了两套机制：
 
 切入点（pointcut）和连接点（join point）匹配的概念是AOP的关键，这使得AOP不同于其它仅仅提供拦截功能的旧技术。 切入点使得定位通知（advice）可独立于OO层次。 例如，一个提供声明式事务管理的around通知可以被应用到一组横跨多个对象中的方法上（例如服务层的所有业务操作）。
 
-![](./asset/img/Snipaste_2021-03-05_11-59-25.png)
+
+![](spring aop 的设计哲学.assets/Snipaste_2021-03-05_11-59-25.png)
 
 ### 切面流程
-![](./asset/img/aspect_flow.png)
+![](spring aop 的设计哲学.assets/aspect_flow.png)
 
 ## Reference
 
 - [https://github.com/yihonglei/thinking-in-spring](https://github.com/yihonglei/thinking-in-spring)
+
 - [关于AspectJ你可能不知道的那些事](https://blog.csdn.net/d_o_n_g2/article/details/85046536?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=1328602.14416.16149500828197117&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)
 
+- [Comparing Spring AOP and AspectJ](https://www.baeldung.com/spring-aop-vs-aspectj)
 
+- [Intro to AspectJ](https://www.baeldung.com/aspectj)
+
+- [Spring官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-proxying)
+
+  
 

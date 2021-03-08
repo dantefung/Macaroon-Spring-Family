@@ -44,14 +44,14 @@ void
 
 下图描绘了拥有多个转换器的 JVM 从加载类到最终生成对应的类字节码的过程：
 
-![](./asset/img/Snip20210306_4.png)
+![](spring aop 的设计哲学.assets/Snip20210306_4.png)
 
 2 使用 LTW 织入切面
 =============
 
 Spring LTW 支持 AspectJ 定义的切面，既可以是直接采用 AspectJ 语法定义的切面，也可以是采用基于 @AspectJ 注解通过 Java 类定义的切面。Spring LTW 采用了与 AspectJ LTW 相同的基础架构，即利用类路径下的 `META-INF/aop.xml` 配置文件找到切面定义及切面所要实施的候选目标类，通过 LoadTimeWeaver 在 ClassLoader 加载类文件时将切面织入目标类中。
 
-![](./asset/img/Snip20210306_5.png)
+![](spring aop 的设计哲学.assets/Snip20210306_5.png)
 
 利用特定 Web 容器的 ClassLoader，通过 LoadTimeWeaver 将 Spring 提供的 ClassFileTransformer 注册到容器的 ClassLoader 中。在类加载期间，注册的 ClassFileTransformer 会读取 AspectJ 的配置文件，即类路径下的 META-INF/aop.xml 文件，获取切面，接着对 Bean 类进行字节码转换，织入切面。Spring 容器初始化 Bean 实例时，采用的 Bean 类就是已经被织入切面的类。
 
