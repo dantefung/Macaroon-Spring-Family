@@ -14,16 +14,16 @@ import java.sql.SQLException;
 @PropertySource( value = "classpath:/application.yml")
 public class MyDataSource {
 
-    @Value( "${spring.datasource.driver-class-name}" )
+    @Value( "${spring.datasource.druid.driver-class-name}" )
     public  String driver ;
 
-    @Value( "${spring.datasource.url}" )
+    @Value( "${spring.datasource.druid.url}" )
     public String url ;
 
-    @Value( "${spring.datasource.username}" )
+    @Value( "${spring.datasource.druid.username}" )
     public String username;
 
-    @Value( "${spring.datasource.password}" )
+    @Value( "${spring.datasource.druid.password}" )
     public String password ;
 
     //加载驱动

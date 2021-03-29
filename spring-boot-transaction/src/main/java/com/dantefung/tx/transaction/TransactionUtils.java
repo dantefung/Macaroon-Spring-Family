@@ -1,9 +1,11 @@
 package com.dantefung.tx.transaction;//编程事务（需要手动begin 手动回滚  手都提交）
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 
@@ -14,8 +16,9 @@ public class TransactionUtils {
 	private TransactionStatus transactionStatus;
 
 	// 获取事务源
+	@Qualifier("transactionManager")
 	@Autowired
-	private DataSourceTransactionManager dataSourceTransactionManager;
+	private PlatformTransactionManager dataSourceTransactionManager;
 
 	// 开启事务
 	public TransactionStatus begin() {

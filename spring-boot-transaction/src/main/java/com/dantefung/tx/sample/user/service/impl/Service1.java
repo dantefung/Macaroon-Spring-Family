@@ -14,6 +14,7 @@ package com.dantefung.tx.sample.user.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,7 +33,7 @@ public class Service1 {
 	@Autowired
 	private Service2 service2;
 
-	@Transactional
+	@Transactional(transactionManager = "transactionManager", propagation = Propagation.REQUIRED)
 	public void m1() {
 		this.jdbcTemplate.update("insert into tb_user(username, age, ctm) values('m1', '11', now())");
 		this.service2.m2();
