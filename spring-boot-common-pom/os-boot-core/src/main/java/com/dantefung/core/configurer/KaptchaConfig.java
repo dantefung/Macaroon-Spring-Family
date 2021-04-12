@@ -24,15 +24,15 @@ import java.util.Properties;
 @Configuration
 public class KaptchaConfig {
 
-    @Bean
-    public DefaultKaptcha producer() {
-        Properties properties = new Properties();
-        properties.put("kaptcha.border", "no");
-        properties.put("kaptcha.textproducer.font.color", "black");
-        properties.put("kaptcha.textproducer.char.space", "5");
-        Config config = new Config(properties);
-        DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
-        defaultKaptcha.setConfig(config);
-        return defaultKaptcha;
-    }
+	@Bean
+	public DefaultKaptcha producer() {
+		Properties properties = new Properties();
+		properties.put("kaptcha.border", "no");
+		properties.put("kaptcha.textproducer.font.color", "black");
+		properties.put("kaptcha.textproducer.char.space", "5");
+		Config config = new Config(properties);
+		DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
+		defaultKaptcha.setConfig(config);
+		return defaultKaptcha;
+	}
 }

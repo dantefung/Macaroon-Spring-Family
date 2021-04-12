@@ -11,6 +11,8 @@
  */
 package com.dantefung.tx.sample.user.dao;
 
+import java.util.Map;
+
 /**
  * @Title: ModuleDao
  * @Description:
@@ -21,4 +23,6 @@ package com.dantefung.tx.sample.user.dao;
 public interface ModuleDao {
 
 	void addModule(String name);
+
+	Map getModuleById(int id);
 }

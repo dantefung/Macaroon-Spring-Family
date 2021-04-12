@@ -24,6 +24,7 @@ public abstract class CacheFacade {
 
 
 	private final String keyPrefix;
+
 	protected CacheFacade(String keyPrefix) {
 		this.keyPrefix = keyPrefix;
 	}
@@ -50,10 +51,10 @@ public abstract class CacheFacade {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 根据Key获取对象
-	 * @param key 
+	 * @param key
 	 * @param clazz 返回的对象类型
 	 * @return
 	 */
@@ -164,7 +165,7 @@ public abstract class CacheFacade {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * 根据Key前缀获取键集合.注意，这里的前缀包含了构造对象时的前缀。例如：common:demo:
 	 * @param prefix 键前缀，可为null。这个前缀会和拼接到内置前缀后面。如:keyPrefix=abc，那么实际的键前缀是：common:demo:abc。
@@ -185,7 +186,7 @@ public abstract class CacheFacade {
 	 * 根据前缀删除匹配的所有键。注意，这里的前缀包含了构造对象时的前缀。例如：common:demo:
 	 * @param prefix 键前缀，可为null。这个前缀会和拼接到内置前缀后面。如:keyPrefix=abc，那么实际的键前缀是：common:demo:abc。
 	 */
-	public void delKeysByPrefix(String prefix){
+	public void delKeysByPrefix(String prefix) {
 		prefix = prefix == null ? "" : prefix;
 		try {
 			prefix = getKeyPrefix() + prefix;
@@ -194,6 +195,7 @@ public abstract class CacheFacade {
 			log.error(REDIS_ERROR);
 		}
 	}
+
 	/**
 	 * 根据所有的keys，获取所有的值
 	 * @param keys
@@ -207,7 +209,7 @@ public abstract class CacheFacade {
 			return Collections.emptyList();
 		}
 	}
-	
+
 	/**
 	 * 获取列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定。
 	 * 如果负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推
@@ -223,7 +225,7 @@ public abstract class CacheFacade {
 			return Collections.emptyList();
 		}
 	}
-	
+
 	/**
 	 * 获取列表头部的一个值
 	 * @author 陈章伟
@@ -238,7 +240,7 @@ public abstract class CacheFacade {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 将一个值插入列表头部
 	 * @author 陈章伟
@@ -247,7 +249,7 @@ public abstract class CacheFacade {
 	public long lpush(String key, Object value) {
 		return lpush(key, value, defaultTimeoutSenonds);
 	}
-	
+
 	/**
 	 * 将一个值插入列表头部，并设置超时时间
 	 * @param timeoutSeconds 超时秒数,-1表示永不超时
@@ -302,7 +304,7 @@ public abstract class CacheFacade {
 		}
 	}
 
-	public Map<Object, Object> hentries(String key){
+	public Map<Object, Object> hentries(String key) {
 		try {
 			key = getKeyPrefix() + key;
 			return getRedis().hentries(key);

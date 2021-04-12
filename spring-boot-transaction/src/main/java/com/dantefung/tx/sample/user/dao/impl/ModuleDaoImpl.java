@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -37,7 +38,14 @@ public class ModuleDaoImpl implements ModuleDao {
 
 	@Transactional(transactionManager = "tansactionManager2", propagation = Propagation.REQUIRED)
 	public void addModule(String name) {
-		jdbcTemplate2.update("insert into module(code,name,description) value (?,?,?)", UUID.randomUUID().toString(), name, UUID.randomUUID().toString());
+		jdbcTemplate2
+				.update("insert into module(code,name,description) value (?,?,?)", UUID.randomUUID().toString(), name,
+						UUID.randomUUID().toString());
+	}
+
+	@Override
+	public Map getModuleById(int id) {
+		return jdbcTemplate2.queryForMap("select * from module where id = ?", new Object[]{id});
 	}
 
 }

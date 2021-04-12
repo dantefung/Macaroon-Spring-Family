@@ -68,4 +68,10 @@ public class UserServiceTest extends Tester {
 		user.setUsername("nike"+i);
 		userService.addByMapper(user);
 	}
+
+	@Test
+	public void testGetModuleById() {
+		userService.getModuleById(2);
+	}
+
 }

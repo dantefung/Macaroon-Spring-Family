@@ -199,11 +199,14 @@ public class SpELBootstrap {
 	@Test
 	public void test6() {
 		SpelExpressionParser elParser = new SpelExpressionParser();
+		String condition = "T(java.lang.Math).ceil((4+(#monthNum-12)/3))";
 		// String condition = "T(java.lang.Math).random()";
 		// 调用静态方法
-		String condition = "T(com.dantefung.thinkinginspringbootsamples.bean.SecurityUser).DEFAULT_ROLE_NAME";
+		//String condition = "T(com.dantefung.thinkinginspringbootsamples.bean.SecurityUser).DEFAULT_ROLE_NAME";
 		Expression expression = elParser.parseExpression(condition);
-		StandardEvaluationContext context = new StandardEvaluationContext();
+		EvaluationContext context = new StandardEvaluationContext();
+		// 注意如果要保留一定的小数位传参要传Double类型
+		context.setVariable("monthNum", 14.0);
 		System.out.println(expression.getValue(context, Object.class));
 	}
 

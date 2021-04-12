@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.dantefung.comm</groupId>
+        <artifactId>spring-boot-common-pom</artifactId>
+        <version>1.0.6-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.dantefung</groupId>
+    <artifactId>xs-boot-dynamic-datasource</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>xs-boot-dynamic-datasource</name>
+    <description>xs-boot-dynamic-datasource project for Spring Boot</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.dantefung</groupId>
+            <artifactId>xs-boot-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

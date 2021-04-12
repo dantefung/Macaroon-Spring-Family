@@ -3,10 +3,13 @@ package com.dantefung.tx.sample.user.service;
 import com.dantefung.tx.sample.user.entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
 	User getUserById(Integer id);
+
+	Map getModuleById(Integer id);
 
 	List<User> getUserList();
 

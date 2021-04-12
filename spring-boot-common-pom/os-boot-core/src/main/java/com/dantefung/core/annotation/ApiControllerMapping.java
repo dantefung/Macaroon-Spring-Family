@@ -13,21 +13,18 @@ import java.lang.annotation.*;
 @RequestMapping
 public @interface ApiControllerMapping {
 
-    /**
-     * Alias for {@link RequestMapping#name}.
-     */
-    @AliasFor(annotation = RequestMapping.class)
-    String name() default "";
+	/**
+	 * Alias for {@link RequestMapping#name}.
+	 */
+	@AliasFor(annotation = RequestMapping.class) String name() default "";
 
-    /**
-     * Alias for {@link RequestMapping#value}.
-     */
-    @AliasFor(annotation = RequestMapping.class)
-    String[] value() default {};
+	/**
+	 * Alias for {@link RequestMapping#value}.
+	 */
+	@AliasFor(annotation = RequestMapping.class) String[] value() default {};
 
-    /**
-     * Alias for {@link RequestMapping#path}.
-     */
-    @AliasFor(annotation = RequestMapping.class)
-    String[] path() default {};
+	/**
+	 * Alias for {@link RequestMapping#path}.
+	 */
+	@AliasFor(annotation = RequestMapping.class) String[] path() default {};
 }

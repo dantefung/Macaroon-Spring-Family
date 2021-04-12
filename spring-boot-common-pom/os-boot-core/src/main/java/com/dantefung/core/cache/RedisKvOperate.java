@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * redis操作
- * 
+ *
  * @author 陈章伟
  * @time 2017年9月22日
  */
@@ -22,7 +22,7 @@ public class RedisKvOperate implements KvOperate {
 
 	/**
 	 * 根据配置文件的集群开关，判断是否使用集群
-	 * 
+	 *
 	 * @author 陈章伟
 	 * @time 2017年9月22日
 	 */
@@ -92,6 +92,7 @@ public class RedisKvOperate implements KvOperate {
 			del(key);
 		}
 	}
+
 	/**
 	 * 根据keys获取所有的value,返回的顺序和keys一致
 	 * Damon
@@ -105,12 +106,12 @@ public class RedisKvOperate implements KvOperate {
 	public long lpush(String key, Object value) {
 		return redisTemplate.opsForList().leftPush(key, value);
 	}
-	
+
 	@Override
 	public Object lpop(String key) {
 		return key == null ? null : redisTemplate.opsForList().leftPop(key);
 	}
-	
+
 	@Override
 	public List<Object> range(String key, long start, long end) {
 		return key == null ? null : redisTemplate.opsForList().range(key, start, end);
@@ -129,12 +130,12 @@ public class RedisKvOperate implements KvOperate {
 	}
 
 	@Override
-	public Set<Object> hkeys(String key){
+	public Set<Object> hkeys(String key) {
 		return redisTemplate.opsForHash().keys(key);
 	}
 
 	@Override
-	public Map<Object, Object> hentries(String key){
+	public Map<Object, Object> hentries(String key) {
 		return redisTemplate.opsForHash().entries(key);
 	}
 

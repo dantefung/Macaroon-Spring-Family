@@ -32,7 +32,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 		return applicationContext.containsBean(name);
 	}
 
-    public static boolean isSingleton(String name) {
+	public static boolean isSingleton(String name) {
 		return applicationContext.isSingleton(name);
 	}
 

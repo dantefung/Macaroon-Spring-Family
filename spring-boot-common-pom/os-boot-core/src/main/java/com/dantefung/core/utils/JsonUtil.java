@@ -20,9 +20,10 @@ import java.util.Map;
 @Slf4j
 public abstract class JsonUtil {
 
-	private JsonUtil(){
+	private JsonUtil() {
 		//default
 	}
+
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 
 	static {
@@ -43,7 +44,7 @@ public abstract class JsonUtil {
 		}
 	}
 
-	public static String map2Json(Map<String,Object> map) {
+	public static String map2Json(Map<String, Object> map) {
 		return obj2Json(map);
 	}
 
@@ -71,17 +72,17 @@ public abstract class JsonUtil {
 	}
 
 
-    /**
-     * 反序列化复杂Collection如List<Bean>, 先使用函数createCollectionType构造类型,然后调用本函数.
-     * @param jsonString
-     * @param javaType
-     * @return
-     */
-    public static <T> T fromJson(String jsonString, JavaType javaType) {
-        try {
-            return objectMapper.readValue(jsonString, javaType);
-        } catch (Exception e) {
+	/**
+	 * 反序列化复杂Collection如List<Bean>, 先使用函数createCollectionType构造类型,然后调用本函数.
+	 * @param jsonString
+	 * @param javaType
+	 * @return
+	 */
+	public static <T> T fromJson(String jsonString, JavaType javaType) {
+		try {
+			return objectMapper.readValue(jsonString, javaType);
+		} catch (Exception e) {
 			throw BizException.OBJECT_CONVER_EXCEPTION;
-        }
-    }
+		}
+	}
 }

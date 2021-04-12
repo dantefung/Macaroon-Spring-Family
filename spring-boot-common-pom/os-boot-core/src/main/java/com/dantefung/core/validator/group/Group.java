@@ -15,7 +15,7 @@ import javax.validation.GroupSequence;
  *
  * @author Mark sunlightcs@gmail.com
  */
-@GroupSequence({Add.class, Update.class,Delete.class})
+@GroupSequence({Add.class, Update.class, Delete.class})
 public interface Group {
 
 }

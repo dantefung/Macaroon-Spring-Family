@@ -65,7 +65,7 @@ public class BizException extends RuntimeException implements Serializable {
 	public BizException fmt(Object... args) {
 		String message = this.msg;
 		if (args != null && args.length > 0) {
-			 message = MessageFormat.format(message, args);
+			message = MessageFormat.format(message, args);
 		}
 		return new BizException(this.code, message);
 	}

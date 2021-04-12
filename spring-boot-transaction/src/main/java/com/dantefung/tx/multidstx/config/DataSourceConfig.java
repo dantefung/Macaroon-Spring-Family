@@ -12,6 +12,7 @@
 package com.dantefung.tx.multidstx.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.dantefung.xs.boot.dynamic.datasource.config.DynamicDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,11 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 public class DataSourceConfig {
+
+/*	@Bean
+	public JdbcTemplate jdbcTemplate(DynamicDataSource dynamicDataSource) {
+		return new JdbcTemplate(dynamicDataSource);
+	}*/
 
 	@Bean
 	public JdbcTemplate jdbcTemplate(@Qualifier("dataSource") DataSource dataSource) {

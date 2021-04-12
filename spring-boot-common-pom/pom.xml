@@ -8,6 +8,8 @@
 	
 	<modules>
         <module>os-boot-core</module>
+        <module>xs-boot-common</module>
+        <module>xs-boot-dynamic-datasource</module>
     </modules>
 
 	<!-- 无特殊要求，项目统一依赖版本信息 -->

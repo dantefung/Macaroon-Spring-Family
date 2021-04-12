@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 二进制工具
- * 
+ *
  * @author 丁伟
  * @data 2017年9月22日 下午5:09:47
  * @version 1.0
@@ -20,7 +20,7 @@ import java.util.Map;
 @Slf4j
 public class ByteUtils {
 
-	private ByteUtils(){
+	private ByteUtils() {
 		// default
 	}
 
@@ -40,7 +40,7 @@ public class ByteUtils {
 
 	/**
 	 * 将整数用字符表示
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -61,7 +61,7 @@ public class ByteUtils {
 		result.reverse();
 		return result.toString();
 	}
-	
+
 	public static String idToCode(long id) {
 		if (id < 0) {
 			return idToCode(id >>> 32) + idToCode(id & 0x00000000FFFFFFFFL);
@@ -80,7 +80,7 @@ public class ByteUtils {
 	/**
 	 * Convert byte[] to hex
 	 * string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。
-	 * 
+	 *
 	 * @param src byte[] data
 	 * @return hex string
 	 */
@@ -103,7 +103,7 @@ public class ByteUtils {
 
 	/**
 	 * Convert hex string to byte[]
-	 * 
+	 *
 	 * @param hexString the hex string
 	 * @return byte[]
 	 */
@@ -124,7 +124,7 @@ public class ByteUtils {
 
 	/**
 	 * Convert char to byte
-	 * 
+	 *
 	 * @param c char
 	 * @return byte
 	 */
@@ -143,17 +143,17 @@ public class ByteUtils {
 			}
 			return swapStream.toByteArray();
 		} catch (IOException e) {
-			log.error("charToByte error{}",e.getMessage());
+			log.error("charToByte error{}", e.getMessage());
 			return new byte[0];
 		}
 	}
-	
-	public static byte[] longToBytes(long ... arg){
-		if(arg == null) {
+
+	public static byte[] longToBytes(long... arg) {
+		if (arg == null) {
 			return new byte[0];
 		}
 		byte[] result = new byte[arg.length * 8];
-		for(int i = 0; i < arg.length; i++) {
+		for (int i = 0; i < arg.length; i++) {
 			result[i * 8 + 0] = (byte) (arg[i] >>> 56);
 			result[i * 8 + 1] = (byte) (arg[i] >>> 48);
 			result[i * 8 + 2] = (byte) (arg[i] >>> 40);
