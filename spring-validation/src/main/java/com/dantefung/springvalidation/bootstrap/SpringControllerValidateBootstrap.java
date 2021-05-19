@@ -12,10 +12,15 @@
 package com.dantefung.springvalidation.bootstrap;
 
 import com.dantefung.springvalidation.annotation.ListValue;
+import com.dantefung.springvalidation.entity.Add;
+import com.dantefung.springvalidation.entity.User;
+import com.dantefung.springvalidation.service.UserService;
 import com.dantefung.springvalidation.utils.LocaleUtil;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
@@ -95,6 +100,17 @@ public class SpringControllerValidateBootstrap extends SpringBootServletInitiali
 
 		}
 		return "validated ! print by BindingResult.";
+	}
+
+	@Autowired
+	private UserService userService;
+	@RequestMapping("/service/validate")
+	public String serviceValidate() {
+		User user = new User();
+		user.setUsername("mike");
+		user.setPassword("1234");
+		userService.saveUser(user, Lists.newArrayList(Add.class));
+		return "validated!";
 	}
 
 	@RequestMapping("valid")
