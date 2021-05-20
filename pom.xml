@@ -14,14 +14,12 @@
 
     <modules>
         <module>spring-aop-demo</module>
-        <module>spring-boot-rocketmq</module>
         <module>spring-boot-actuator</module>
         <module>spring-boot-autoconf</module>
         <module>thinking-in-springboot</module>
         <module>spring-boot-mybatisplus</module>
         <module>spring-boot-redis</module>
         <module>think-in-spring</module>
-        <module>spring-boot-redis-mq</module>
         <module>spring-boot-mvc</module>
         <module>spring-boot-common-pom</module>
         <module>starter-samples</module>
@@ -39,6 +37,7 @@
         <module>spring-boot-lucene</module>
         <module>spring-boot-transaction</module>
         <module>spring-boot-cluster-quartz</module>
+        <module>spring-messaging</module>
     </modules>
 
     <properties>
