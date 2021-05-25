@@ -35,9 +35,9 @@
         <module>spring-boot-assembly</module>
         <module>spring-boot-docker</module>
         <module>spring-boot-lucene</module>
-        <module>spring-boot-transaction</module>
         <module>spring-boot-cluster-quartz</module>
         <module>spring-messaging</module>
+        <module>spring-tx</module>
     </modules>
 
     <properties>
