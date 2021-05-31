@@ -38,6 +38,7 @@
         <module>spring-boot-cluster-quartz</module>
         <module>spring-messaging</module>
         <module>spring-tx</module>
+        <module>spring-boot-statemachine</module>
     </modules>
 
     <properties>
